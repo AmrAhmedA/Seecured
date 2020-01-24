@@ -44,88 +44,88 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.blueAccent.withOpacity(0.8),
       ),
-      body: Image.asset("assets/image/candidate.jpg"),
-//      body: Row(
-//        children: <Widget>[
-//          Expanded(
-//            child: Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Column(
-//                children: <Widget>[
-//                  Container(
-//                    decoration: BoxDecoration(
-//                        shape: BoxShape.circle,
-//                        border: Border.all(
-//                            color: Colors.red.withOpacity(0.8), width: 8)),
-//                    child: CircleAvatar(
-//                      backgroundImage:
-//                          AssetImage("assets/image/candidate1.jpg"),
-//                      radius: 75,
-//                    ),
-//                  ),
-//                  Container(
-//                    margin: EdgeInsets.only(top: 20),
-//                    padding: EdgeInsets.symmetric(horizontal: 24),
-//                    decoration: BoxDecoration(
-//                      borderRadius: BorderRadius.all(Radius.circular(30)),
-//                      color: Colors.red.withOpacity(0.9),
-//                    ),
-//                    child: FlatButton(
-//                      child: Text("Candidate 1",
-//                          style: TextStyle(color: Colors.white)),
-//                      onPressed: () async {
-//                        if (await showPopup("Amr"))
-//                          print("Voted for candidate 1");
-//                        else
-//                          print("Selection Canceled");
-//                      },
-//                    ),
-//                  )
-//                ],
-//              ),
-//            ),
-//          ),
-//          Expanded(
-//            child: Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Column(
-//                children: <Widget>[
-//                  Container(
-//                    decoration: BoxDecoration(
-//                        shape: BoxShape.circle,
-//                        border: Border.all(
-//                            color: Colors.red.withOpacity(0.8), width: 10)),
-//                    child: CircleAvatar(
-//                      backgroundImage: AssetImage("assets/image/candidate.jpg"),
-//                      radius: 75,
-//                    ),
-//                  ),
-//                  Container(
-//                    decoration: BoxDecoration(
-//                      borderRadius: BorderRadius.all(Radius.circular(30)),
-//                      color: Colors.red.withOpacity(0.9),
-//                    ),
-//                    margin: EdgeInsets.only(top: 20),
-//                    padding: EdgeInsets.symmetric(horizontal: 24),
-//                    child: FlatButton(
-//                      child: Text(
-//                        "Candidate 2",
-//                        style: TextStyle(color: Colors.white),
-//                      ),
-//                      onPressed: () async {
-//                        if (await showPopup("Amr"))
-//                          print("Voted for candidate 2");
-//                        else
-//                          print("Selection Canceled");
-//                      },
-//                    ),
-//                  )
-//                ],
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
+//      body: Image.asset("assets/image/candidate.jpg"),
+      body: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: Colors.red.withOpacity(0.8), width: 8)),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          AssetImage("assets/image/candidate1.jpg"),
+                      radius: 75,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      color: Colors.red.withOpacity(0.9),
+                    ),
+                    child: FlatButton(
+                      child: Text("Candidate 1",
+                          style: TextStyle(color: Colors.white)),
+                      onPressed: () async {
+                        if (await showPopup("Amr"))
+                          print("Voted for candidate 1");
+                        else
+                          print("Selection Canceled");
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: Colors.red.withOpacity(0.8), width: 10)),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage("assets/image/candidate.jpg"),
+                      radius: 75,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      color: Colors.red.withOpacity(0.9),
+                    ),
+                    margin: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: FlatButton(
+                      child: Text(
+                        "Candidate 2",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        if (await showPopup("Amr"))
+                          print("Voted for candidate 2");
+                        else
+                          print("Selection Canceled");
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
       drawer: buildDrawer(),
     );
   }
