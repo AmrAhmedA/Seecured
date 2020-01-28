@@ -1,4 +1,4 @@
-# seecuredvoting
+# Seecuredvoting
 
 A Graduation Project Crossplatform Application using Flutter.
 
