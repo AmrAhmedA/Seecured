@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fl_chart/fl_chart.dart';
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -118,6 +116,21 @@ class _HomePageState extends State<HomePage> {
                         else
                           print("Selection Canceled");
                       },
+                    ),
+                  ),
+                  RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.indigo,
+                    textColor: Colors.white,
+                    child: Text(
+                      'Back',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
                     ),
                   )
                 ],

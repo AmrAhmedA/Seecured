@@ -51,6 +51,7 @@ flutter:
     - assets/image/BUELOGO.png
     - assets/image/candidate.jpg
     - assets/image/candidate1.jpg
+    - assets/image/SeecuredLogo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -76,3 +77,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
