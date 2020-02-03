@@ -1,61 +1,133 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:seecuredvoting/Widgets/LoginField.dart';
+
 import 'HomePage.dart';
-import 'package:seecuredvoting/Screens/HomePage.dart';
 
-class LoginPage extends StatelessWidget {
-  Icon fieldIcon;
-  String hinText;
-  bool _isHidden = true;
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
 
-  void _toggleVisibility(){
-      _isHidden=!_isHidden;
-  }
-  LoginPage(this.fieldIcon, this.hinText);
+class _LoginState extends State<Login> {
+  final formKey = GlobalKey<FormState>();
+
+  String name, password;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      width: 250,
-      child: Material(
-        elevation: 5.0,
-        color: Colors.indigo,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(padding: const EdgeInsets.all(12.0), child: fieldIcon),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0))),
-              width: 200,
-              height: 60,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: hinText,
-                    fillColor: Colors.white,
-                    filled: true,
-                    icon: hinText == 'Password' ? IconButton( onPressed: _toggleVisibility, icon: _isHidden? Icon(Icons.visibility_off):Icon(Icons.visibility_off) ) : null,
+    return Scaffold(
+        body: Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      color: Colors.white,
+      child: Center(
+        child: Container(
+          width: 400,
+          height: 450,
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Material(
+                    child: Image.asset(
+                  'assets/image/SeecuredLogo.png',
+                  width: 300,
+                  height: 100,
+                )),
+                LoginField(
+                  fieldIcon: Icon(
+                    Icons.person,
+                    color: Colors.white,
                   ),
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
-                  ),
-                  obscureText: hinText == 'Password' ? _isHidden : false,
-
+                  hinText: 'Username',
+                  onSaved: (text) {
+                    name = text;
+                  },
                 ),
-              ),
+                LoginField(
+                  fieldIcon: Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                  ),
+                  hinText: 'Pssword',
+                  isPassword: true,
+                  onSaved: (text) {
+                    password = text;
+                  },
+                ),
+                Container(
+                    width: 150,
+                    height: 50,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      onPressed: () {
+                        validate();
+                      },
+                      color: Colors.indigo,
+                      textColor: Colors.white,
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 23.0,
+                        ),
+                      ),
+                    ))
+              ],
             ),
-          ],
+          ),
         ),
       ),
-    );
+    ));
+  }
+
+  void validate() {
+    showLoadingIndicator();
+    Timer.periodic(Duration(seconds: 3), (timer) {
+      print(timer.tick);
+      timer.cancel();
+      formKey.currentState.save();
+      Navigator.pop(context);
+      if (name == "admin" && password == "123") {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+      else {
+        showPopup();
+      }
+    });
+  }
+
+  void showPopup() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Warning"),
+            content: Text("Invalid Credentials"),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close"),
+              ),
+            ],
+          );
+        });
+  }
+
+  void showLoadingIndicator() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        });
   }
 }
