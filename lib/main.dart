@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AmrAhmedProjectDemo',
+      title: 'AmrAhmedGraduation ProjectDemo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-double wp(double width, BuildContext context) {
+double wp(double width, BuildContext context) { //Global function for setting the width accordingly to the dimensions of the media
   return MediaQuery.of(context).size.width * width / 100;
 }
 
-double hp(double height, BuildContext context) {
+double hp(double height, BuildContext context) { //Global function for setting the height accordingly to the dimensions of the media
   return MediaQuery.of(context).size.height * height / 100;
 }

@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:seecuredvoting/Widgets/LoginField.dart';
-
 import 'HomePage.dart';
 
 class Login extends StatefulWidget {
@@ -96,13 +94,11 @@ class _LoginState extends State<Login> {
       if (name == "admin" && password == "123") {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
-      }
-      else {
+      } else {
         showPopup();
       }
     });
   }
-
   void showPopup() async {
     await showDialog(
         context: context,
@@ -121,7 +117,6 @@ class _LoginState extends State<Login> {
           );
         });
   }
-
   void showLoadingIndicator() {
     showDialog(
         context: context,
