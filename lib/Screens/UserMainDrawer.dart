@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'LoginPage.dart';
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,10 @@ class MainDrawer extends StatelessWidget {
               'Logout',
               style: TextStyle(fontSize: 25),
             ),
-            onTap: null,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.copyright, size: 40),

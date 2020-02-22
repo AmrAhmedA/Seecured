@@ -15,22 +15,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.0,
-        title: Row(
-          children: <Widget>[
-            Image.asset(
-              "assets/image/BUELOGO.png",
-              scale: 2.3,
-              fit: BoxFit.cover,
-            ),
-            Text(
-              'SU ELECTIONS',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            )
-          ],
-        ),
+        title: Text('Seecured Election E-voting'),
         centerTitle: true,
         backgroundColor: Colors.indigo.withOpacity(0.8),
       ),

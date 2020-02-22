@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
                     Icons.lock,
                     color: Colors.white,
                   ),
-                  hinText: 'Pssword',
+                  hinText: 'Password',
                   isPassword: true,
                   onSaved: (text) {
                     password = text;
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
       timer.cancel();
       formKey.currentState.save();
       Navigator.pop(context);
-      if (name == "admin" && password == "123") {
+      if (name == "Amr" && password == "454565amr") {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
