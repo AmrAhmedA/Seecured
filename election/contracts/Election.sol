@@ -45,7 +45,7 @@ contract Election {
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
 
-        // incrementing Votes
+        // incrementing Total Number of Votes
         totalVotes++;
     }
     
