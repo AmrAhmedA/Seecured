@@ -3,6 +3,7 @@ App = {
   contracts: {},
   account: '0x0',
   hasVoted: false,
+  test: false,
 
   init: function() {
     return App.initWeb3();
@@ -69,27 +70,31 @@ App = {
           var voteCount = candidate[2];
 
           // Render candidate Result
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
+          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>";
           candidatesResults.append(candidateTemplate);
 
           // Render candidate ballot option
-          var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
+          var candidateOption = "<option value='" + id + "' >" + name + "</ option>";
           candidatesSelect.append(candidateOption);
         });
       }
-      return electionInstance.voters(App.account);
-    }).then(function(hasVoted) {
+      return electionInstance.voters(App.account).then(function(voters) {
+        hasVoted = voters[1];
+      })
+   }).then(function() {
       // Do not allow a user to vote
+        console.log("Hello");
+
       if(hasVoted) {
         $('form').hide();
-      }
+      } 
       loader.hide();
       content.show();
     }).catch(function(error) {
       console.warn(error);
+      alert("Sorry Amr, You Need to Focus More");
     });
   },
-
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
     App.contracts.Election.deployed().then(function(instance) {
@@ -104,6 +109,9 @@ App = {
   }
 };
 
+function reloadPage(){
+        location.reload(true);
+    }
 $(function() {
   $(window).load(function() {
     App.init();
