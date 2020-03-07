@@ -67,10 +67,13 @@ App = {
         electionInstance.candidates(i).then(function(candidate) {
           var id = candidate[0];
           var name = candidate[1];
-          var voteCount = candidate[2];
+          var studentID = candidate[2];
+          var committee = candidate[3];
+          var voteCount = candidate[4];
+
 
           // Render candidate Result
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>";
+          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</th><td>" + studentID + "</td><td>" + committee + "</td><td>" + voteCount + "</td></tr>";
           candidatesResults.append(candidateTemplate);
 
           // Render candidate ballot option

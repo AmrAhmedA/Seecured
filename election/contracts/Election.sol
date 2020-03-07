@@ -1,12 +1,16 @@
 pragma solidity ^0.5.0;
 //all rights reserved to Amr Ahmed Abd El Rahman
 contract Election {
+
     // Model a Candidate
     struct Candidate {
         uint id;
         string name;
+        uint sID;
+        string committee;
         uint voteCount;
     }
+
     // Model a Voter
     struct Voter {
         bool authorized;
@@ -14,19 +18,19 @@ contract Election {
         uint vote;
     }
 
-    //Owner of the deployed Smart Contract(Election)
+    // owner of the deployed Smart Contract (Election)
     address public Owner; 
 
-    // Store Election name, in my case - BUE Student Union Election
+    // store Election name, in my case - BUE Student Union Election
     string public electionName;
 
-    // Store total number of votes
+    // store total number of votes
     uint public totalVotes;
 
-    // Store Candidates Count
+    // store candidates Count
     uint public candidatesCount;
 
-    // Store Voter's Ballot
+    // store voter's ballot
     mapping(address => Voter) public voters;
 
     // Store Candidates
@@ -35,23 +39,24 @@ contract Election {
 
      constructor() public {
         Owner = msg.sender;
-        addCandidate("Amr Ahmed Abd El Rahman");
-        addCandidate("Moataz Ahmed Abd El Rahman");
+        addCandidate("Amr Ahmed Abd El Rahman", 162697, "Scientific");
+        addCandidate("Moataz Ahmed Abd El Rahman", 182839, "Clubs");
     }
 
-    // Person who is calling this function will be only the Owner of the contract
+    // person who is calling this function will be only the Owner of the contract
     modifier ownerOnly(){
         _;
         require(msg.sender == Owner);
     }
 
+    // person who is calling this function is the owner of the contract and will authorize voters to participate in the election
     function authorize(address _person) ownerOnly public {
         voters[_person].authorized = true;
     }
 
-    function addCandidate (string memory _name) private {
+    function addCandidate (string memory _name, uint _UniqueID, string memory _committee) private {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, _UniqueID, _committee, 0);
     }
 
     // return total number of candidates in my system
@@ -68,7 +73,9 @@ contract Election {
         electionName = _electionName;
     }
 
+    // the most important function - casting a vote
     function vote (uint _candidateId) public {
+
         // require that they haven't voted before
         require(!voters[msg.sender].voted);
 
@@ -84,10 +91,10 @@ contract Election {
         // store voter choice
         voters[msg.sender].vote = _candidateId;
 
-        // update candidate vote Count
+        // update candidate vote count
         candidates[_candidateId].voteCount ++;
 
-        // incrementing Votes
+        // incrementing the total number of votes
         totalVotes++;
     }
     
