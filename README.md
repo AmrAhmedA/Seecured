@@ -13,11 +13,12 @@ This project is an attempt to create a robust, automated, secured E-voting Syste
 * JavaScript
 * Html & Css (Styling and Markup)
 ## Web Application Prerequisites
-* [Truffle](https://www.trufflesuite.com/truffle) - Development framework used
+* [Truffle](https://www.trufflesuite.com/truffle) - Development framework 
 * [NodeJs](https://nodejs.org/en/) - Run time environment
 * [MetaMask](https://metamask.io/) - Self-hosted wallet
 * [Bootstrap](https://getbootstrap.com/) - Potent front-end framework for UI
 * [Solidity](https://solidity.readthedocs.io/en/v0.6.3/) - High-level language for implementing smart contract
+* [Remix Ethereum](https://remix.ethereum.org/) - Smart contract IDE and debugger
 
 ## Mobile Application Prerequisites
 * [Flutter](https://flutter.dev/docs) - SDK for building high-performance crossplatform application
