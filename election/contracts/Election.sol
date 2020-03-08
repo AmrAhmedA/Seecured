@@ -97,6 +97,5 @@ contract Election {
         // incrementing the total number of votes
         totalVotes++;
     }
-    
 }
 //all rights reserved to Amr Ahmed Abd El Rahman
