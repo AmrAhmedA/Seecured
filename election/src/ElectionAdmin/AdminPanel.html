@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Panel</title>
-    <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container" style="width: 650px;">
-      <div class="row">
-        <img class="img-responsive center-block" src="../images/BUELogo.png" alt="Seecured Logo" height="350" width="350" >
-        <div class="col-lg-12 text-center" >
-          <h1 >Admin Panel</h1>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel</title>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/Styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="icon-bar">
+    <a href="https://www.facebook.com/britishuniversityegypt/" class="facebook"><i class="fa fa-facebook"></i></a> 
+    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a> 
+    <a href="#" class="google"><i class="fa fa-google"></i></a> 
+    <a href="https://www.linkedin.com/school/the-british-university-in-egypt/about/" class="linkedin"><i class="fa fa-linkedin"></i></a>
+    <a href="https://github.com/AmrAhmedA/Seecured" class="github"><i class="fa fa-github"></i></a> 
+  </div>
+  <div class="container" style="width: 650px;">
+    <div class="row">
+      <img class="img-responsive center-block" src="../images/BUELogo.png" alt="Seecured Logo" height="350" width="350" >
+      <div class="col-lg-12 text-center" >
+        <h1 >Admin Panel</h1>
+        <hr/>
+        <br/>
+        <div id="content">
+          <h4 id="candidateName"></h4>
           <hr/>
-          <br/>
-          <div id="content">
-            <h4 id="candidateName"></h4>
-            <hr/>
-            <form role="form">
-              <div class="form-group" style="display:inline;">
-                <div class="input-group">
-                  <input class="form-control input-lg" name="candidateName">
-                  </input>
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary btn-lg">Add Candidate</button>
-                  </span>
-                </div>
-              </div>
-            </form>
-            <hr>
-            <p id="accountAddress" class="text-center"></p>
-            <img class="img-responsive center-block" src="../images/Seecured-Election-E-voting.png" alt="Seecured Logo" height="150" width="150" >
-            <p class = "text-center">Powered by Seecured at BUE | All Rights Reserved to Amr A. Abdelrahman Gewaly &copy;</p>
+          <form role="form">
+            <div class="form-group" style="display:inline;">
+              <div class="input-group">
+                <input class="form-control input-lg" name="candidateName">
+              </input>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary btn-lg">Add Candidate</button>
+              </span>
+            </div>
           </div>
-        </div>
+        </form>
+        <hr>
+        <p id="accountAddress" class="text-center"></p>
+        <img class="img-responsive center-block" src="../images/Seecured-Election-E-voting.png" alt="Seecured Logo" height="150" width="150" >
+        <p class = "text-center">Powered by Seecured at BUE | All Rights Reserved to Amr A. Abdelrahman Gewaly &copy;</p>
       </div>
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Dependencies-->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/web3.min.js"></script>
-    <script src="../js/truffle-contract.js"></script>
-    <script src="../js/app.js"></script>
-  </body>
+  </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Dependencies-->
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/web3.min.js"></script>
+<script src="../js/truffle-contract.js"></script>
+<script src="../js/app.js"></script>
+</body>
 </html>
