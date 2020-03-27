@@ -49,8 +49,8 @@ App = {
     var candidatename = $("#candidatename").val();
     var candidateid = $("#candidateid").val();
     App.contracts.Election.deployed().then(function(instance){
-      return instance.addCandidate(candidatename,candidateid,candidatecomittee,{from:App.account})
-    }.then(function(result) {
+      return instance.addCandidate(candidatename,candidateid,candidatecomittee,{from:App.account});
+    }).then(function(result) {
       alert("Candidate Added Successfully");
     }).catch(function(err) {
       console.error(err);

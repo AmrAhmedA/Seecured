@@ -49,6 +49,9 @@ contract Election {
         require(msg.sender == Owner);
     }
 
+    event votedEvent(uint indexed _candidateId);
+
+
     // Person who is calling this function is the owner of the contract and will authorize voters to participate in the election
     function authorize(address _person) ownerOnly public {
         voters[_person].authorized = true;
@@ -93,9 +96,11 @@ contract Election {
 
         // Update candidate vote count
         candidates[_candidateId].voteCount ++;
-
+        
         // incrementing the total number of votes
         totalVotes++;
+
+        emit votedEvent(_candidateId);
     }
 }
 //all rights reserved to Amr Ahmed Abd El Rahman
