@@ -100,6 +100,7 @@ contract Election {
         // incrementing the total number of votes
         totalVotes++;
 
+        // handling voting interaction
         emit votedEvent(_candidateId);
     }
 }

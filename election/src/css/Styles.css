@@ -49,3 +49,23 @@
   margin-left: 75px;
   font-size: 30px;
 }
+
+/* Responsive Timer */
+label {
+  clear: both;
+  display: block;
+  font-weight: normal;
+
+}
+#countdown span {
+  background:#FFF;
+  color: #313233;
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+  width: 25%;
+  display: block;
+  float: left;
+  border-right: 1px solid #FFF;
+}
+
