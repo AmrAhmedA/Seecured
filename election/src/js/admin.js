@@ -5,11 +5,11 @@ App = {
   hasVoted: false,
   test: false,
 
-  init: function() {
+  init: function () {
     return App.initWeb3();
   },
   //Function To Initialize our Connection to the Client Side Application
-  initWeb3: function() {
+  initWeb3: function () {
     // TODO: refactor conditional
     if (typeof web3 !== 'undefined') {
       // If a web3 instance is already provided by Meta Mask.
@@ -25,8 +25,8 @@ App = {
     return App.initContract();
   },
 
-  initContract: function() {
-    $.getJSON("Election.json", function(election) {
+  initContract: function () {
+    $.getJSON("Election.json", function (election) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Election = TruffleContract(election);
       // Connect provider to interact with contract
@@ -35,25 +35,27 @@ App = {
       return App.render();
     });
   },
-  render: function() {
+  render: function () {
     // Load account data
-    web3.eth.getCoinbase(function(err, account) {
+    web3.eth.getCoinbase(function (err, account) {
       if (err === null) {
         App.account = account;
         $("#accountAddress").html("Your Account: " + account);
       }
     });
   },
-  addCandidate: function(){
+  addCandidate: function () {
     var candidatecomittee = $('#candidatecomittee').val();
     var candidatename = $("#candidatename").val();
     var candidateid = $("#candidateid").val();
-    App.contracts.Election.deployed().then(function(instance){
-      return instance.addCandidate(candidatename,candidateid,candidatecomittee,{from:App.account});
-    }).then(function(result) {
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.addCandidate(candidatename, candidateid, candidatecomittee, {
+        from: App.account
+      });
+    }).then(function (result) {
       alert("Candidate Added Successfully");
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.error(err);
     });
   }
-}
+};
