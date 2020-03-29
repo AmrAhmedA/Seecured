@@ -12,6 +12,11 @@ This project is an attempt to create a robust, automated, secured E-voting Syste
 * Dart 
 * JavaScript
 * Html & Css (Styling and Markup)
+
+## Code Editor
+* [Vscode](https://code.visualstudio.com/)
+* [Sublime](https://www.sublimetext.com/)
+
 ## Web Application Prerequisites
 * [Truffle](https://www.trufflesuite.com/truffle) - Development framework 
 * [NodeJs](https://nodejs.org/en/) - Run time environment
