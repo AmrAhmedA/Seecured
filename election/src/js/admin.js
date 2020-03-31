@@ -26,12 +26,12 @@ App = {
   },
 
   initContract: function () {
-    $.getJSON("Election.json", function (election) {
+    $.getJSON("../Election.json", function (election) {
       // Instantiate a new truffle contract from the artifact
       App.contracts.Election = TruffleContract(election);
       // Connect provider to interact with contract
       App.contracts.Election.setProvider(App.web3Provider);
-
+      
       return App.render();
     });
   },
@@ -44,10 +44,10 @@ App = {
       }
     });
   },
-  addCandidate: function () {
+  addNewcandidate: function () {
     var candidatecomittee = $('#candidatecomittee').val();
-    var candidatename = $("#candidatename").val();
-    var candidateid = $("#candidateid").val();
+    var candidatename = $('#candidatename').val();
+    var candidateid = $('#candidateid').val();
     App.contracts.Election.deployed().then(function (instance) {
       return instance.addCandidate(candidatename, candidateid, candidatecomittee, {
         from: App.account
@@ -59,3 +59,12 @@ App = {
     });
   }
 };
+
+function reloadPage() {
+  location.reload(true);
+}
+$(function () {
+  $(window).load(function () {
+    App.init();
+  });
+});

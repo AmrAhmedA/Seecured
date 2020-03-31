@@ -57,7 +57,7 @@ contract Election {
         voters[_person].authorized = true;
     }
 
-    function addCandidate (string memory _name, uint _UniqueID, string memory _committee) private {
+    function addCandidate (string memory _name, uint _UniqueID, string memory _committee) ownerOnly public{
         candidatesCount ++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, _UniqueID, _committee, 0);
     }
