@@ -3,7 +3,6 @@ App = {
   contracts: {},
   account: '0x0',
   hasVoted: false,
-  test: false,
 
   init: function () {
     return App.initWeb3();
@@ -31,7 +30,7 @@ App = {
       App.contracts.Election = TruffleContract(election);
       // Connect provider to interact with contract
       App.contracts.Election.setProvider(App.web3Provider);
-      
+
       return App.render();
     });
   },
@@ -42,7 +41,15 @@ App = {
         App.account = account;
         $("#accountAddress").html("Your Account: " + account);
       }
+      // account = web3.eth.accounts[0];
+      // var accountInterval = setInterval(function () {
+      //   if (web3.eth.accounts[0] !== account) {
+      //     account = web3.eth.accounts[0];
+      //     updateInterface();
+      //   }
+      // }, 100);
     });
+
   },
   addNewcandidate: function () {
     var candidatecomittee = $('#candidatecomittee').val();
@@ -56,6 +63,14 @@ App = {
       alert("Candidate Added Successfully");
     }).catch(function (err) {
       console.error(err);
+    });
+  },
+  authorizeStudent: function () {
+    var StudentAccount = $('#studentaccount').val();
+    App.contracts.Election.deployed().then(function (instance) {
+      return instance.authorize(StudentAccount, {
+        from: App.account
+      });
     });
   }
 };

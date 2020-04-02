@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Dependencies-->
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/web3.min.js"></script>
@@ -48,8 +48,8 @@
                             <div id="filterDate2">
                                 <label for="ElectionName">Election End Date</label>
                                 <!-- Datepicker as text field -->
-                                <div class="input-group date" data-date-format="dd.mm.yyyy">
-                                    <input type="text" class="form-control" placeholder="dd.mm.yyyy">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" class="form-control">
                                     <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                     </div>
@@ -81,10 +81,10 @@
                         <button type="submit" class="btn btn-primary btn-lg "> Add Candidate </button>
                     </form>
                     <hr>
-                    <form role="form">
+                    <form role="form" onSubmit="App.authorizeStudent(); return false">
                         <div class="form-group" style="display:inline;">
                             <div class="input-group">
-                                <input class="form-control input-lg" name="candidateName" placeholder="Student Account">
+                                <input class="form-control input-lg" id= "studentaccount" name="candidateAccount" placeholder="Student Account">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary btn-lg">Authorize Student</button>
                                 </span>

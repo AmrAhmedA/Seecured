@@ -3,7 +3,6 @@ App = {
   contracts: {},
   account: '0x0',
   hasVoted: false,
-  test: false,
 
   init: function () {
     return App.initWeb3();
