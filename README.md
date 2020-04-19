@@ -1,8 +1,21 @@
 # Blockchain Based E-voting Decentralized Application
 This project is an attempt to create a robust, automated, secured E-voting System using Ethereum Blockchain technology.
 
+# Why Ethereum?
+
+Ethereum is a platform for Smart Contracts that provides the following:
+
+* A public communication channel (i.e. its peer to peer network).
+* All communication is authenticated (i.e. transactions are signed by the voter's Ethereum address)
+* An immutable public ledger to store the voting information (i.e. eligibility white list, voting keys and votes).
+* Economic majority must reach consensus on a program's execution.
+
+# How does it work?
+
 # Project Logo
 ![alt text](https://github.com/AmrAhmedA/Seecured/blob/master/seecuredvoting/assets/image/SeecuredLogo.png)
+
+# Prerequisite
 
 ## Operating System 
 * [Ubuntu](https://ubuntu.com/) - Linux Distribution for Development
@@ -35,6 +48,7 @@ This project is an attempt to create a robust, automated, secured E-voting Syste
 ## Running on live node
 * [Infura](https://infura.io/) - Running Ethereum node with an API key
 * [Go Ethereum - Geth](https://geth.ethereum.org/downloads/) - Running Ethereum full node
+
 ## Supervised by 
 * Associate Professor Abeer Hamdy
 * Associate Professor Mostafa Salama
