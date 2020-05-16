@@ -13,6 +13,7 @@ Ethereum is a platform for Smart Contracts that provides the following:
 # How does it work?
 
 # Project Logo
+* [Behance](https://www.behance.net/gallery/97211513/Seecured-Logo) - Seecured Logo
 <img src="https://github.com/AmrAhmedA/Seecured/blob/master/seecuredvoting/assets/image/SeecuredFinal.png" width="400" height="200">
 
 # Prerequisite
