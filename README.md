@@ -10,6 +10,10 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * An immutable public ledger to store the voting information (i.e. eligibility white list, voting keys and votes).
 * Economic majority must reach consensus on a program's execution.
 
+## Election Stages
+<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Election%20Stages/ElectionStages.png" width="600" height="200">
+
+
 # How does it work?
 
 # Project Logo
