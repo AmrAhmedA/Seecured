@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 Material(
                     child: Image.asset(
-                  'assets/image/SeecuredLogo.png',
+                  'assets/image/Seecured.png',
                   width: 300,
                   height: 100,
                 )),
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
       timer.cancel();
       formKey.currentState.save();
       Navigator.pop(context);
-      if (name == "Amr" && password == "454565amr") {
+      if (name == "amr" && password == "454565amr") {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
