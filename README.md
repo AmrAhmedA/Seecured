@@ -10,8 +10,11 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * An immutable public ledger to store the voting information (i.e. eligibility white list, voting keys and votes).
 * Economic majority must reach consensus on a program's execution.
 
+## What is unique in this project?
+<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20traditional%20System.png" width="300" height="500"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20my%20System.png" width="300" height="500"> 
+
 ## Election Stages
-<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Election%20Stages/ElectionStages.png" width="600" height="200">
+<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Election%20Stages/ElectionStages.png" width="650" height="200">
 
 ## Election Process
 <img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Process%20Scenario%20Diagram/ProcessExamplePDF.png" width="800" height="350">
