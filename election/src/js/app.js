@@ -5,17 +5,28 @@ App = {
     hasVoted: false,
 
     init: function() {
-        return App.initWeb3();
+        const metamaskInstalled = typeof window.web3 !== 'undefined';
+        if (metamaskInstalled) {
+            return App.initWeb3();
+        } else {
+            if (!metamaskInstalled) {
+                var loader = $("#loader");
+                loader.empty();
+                var result = `<h2 class='text-center'> Please Install MetaMask </h2> <img class='img-responsive center-block' src='images/metamask.png' alt='Seecured Logo' height='250' width='150'></img>`
+                loader.append(result);
+                return;
+            }
+        }
     },
     //Function To Initialize our Connection to the Client Side Application
     initWeb3: function() {
-        // TODO: refactor conditional
         if (typeof web3 !== 'undefined') {
             // If a web3 instance is already provided by Meta Mask.
             App.web3Provider = web3.currentProvider;
             ethereum.enable();
             web3 = new Web3(web3.currentProvider);
         } else {
+            alert("Please Install MetaMask");
             // Specify default instance if no web3 instance provided
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
             ethereum.enable();
