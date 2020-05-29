@@ -1,92 +1,126 @@
 pragma solidity ^0.5.0;
+
+
 //all rights reserved to Amr Ahmed Abd El Rahman
 contract Election {
-
     // Model a Candidate
     struct Candidate {
-        uint id;
+        uint256 id;
         string name;
-        uint sID;
+        uint256 sID;
         string committee;
-        uint voteCount;
+        uint256 voteCount;
     }
 
     // Model a Voter
     struct Voter {
         bool authorized;
         bool voted;
-        uint vote;
+        uint256 vote;
     }
 
     // Owner of the deployed Smart Contract (Election)
-    address public Owner; 
+    address public Owner;
 
     // Store Election name, in my case - BUE Student Union Election
     string public electionName;
 
+    // Store Election EndDate
+    string public electionDate;
+
     // Store total number of votes
-    uint public totalVotes;
+    uint256 public totalVotes;
 
     // Store candidates Count
-    uint public candidatesCount;
+    uint256 public candidatesCount;
+
+    // Store max number of votes for the winner
+    uint256 public winingVoteCount = 0;
+
+    // Store Election winner
+    uint256 public _winnerID;
 
     // Store voter's ballot
     mapping(address => Voter) public voters;
 
     // Store Candidates
     // Fetch Candidate
-    mapping(uint => Candidate) public candidates;
+    mapping(uint256 => Candidate) public candidates;
 
-     constructor() public {
+    constructor() public {
         Owner = msg.sender;
         addCandidate("Amr Ahmed Abd El Rahman", 162697, "Scientific");
         addCandidate("Moataz Ahmed Abd El Rahman", 182839, "Clubs");
+        setElectionName("BUE Student Union Election");
     }
 
     // Person who is calling this function will be only the Owner of the contract
-    modifier ownerOnly(){
+    modifier ownerOnly() {
         _;
-        require(msg.sender == Owner);
+        require(msg.sender == Owner, "Caller is not owner");
     }
 
-    event votedEvent(uint indexed _candidateId);
-
+    event votedEvent(uint256 indexed _candidateId);
 
     // Person who is calling this function is the owner of the contract and will authorize voters to participate in the election
-    function authorize(address _person) ownerOnly public {
+    function authorize(address _person) public ownerOnly {
         voters[_person].authorized = true;
     }
 
-    function addCandidate (string memory _name, uint _UniqueID, string memory _committee) ownerOnly public{
-        candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, _UniqueID, _committee, 0);
+    function addCandidate(
+        string memory _name,
+        uint256 _UniqueID,
+        string memory _committee
+    ) public ownerOnly {
+        candidatesCount++;
+        candidates[candidatesCount] = Candidate(
+            candidatesCount,
+            _name,
+            _UniqueID,
+            _committee,
+            0
+        );
     }
 
-    // Return total number of candidates in my system
-    function getNumCandidates() public view returns(uint) {
-        return candidatesCount;
-    }
-
-    // Return total number of votes in my system
-    function getTotalVotes() public view returns(uint) {
-        return totalVotes;
-    }
-
-    function setElectionName(string memory _electionName) ownerOnly public{
+    function setElectionName(string memory _electionName) public ownerOnly {
         electionName = _electionName;
     }
 
-    // The most important function - casting a vote
-    function vote (uint _candidateId) public {
+    function setElectionEndDate(string memory _electionDate) public ownerOnly {
+        electionDate = _electionDate;
+    }
 
+    // Return total number of candidates
+    function getNumCandidates() public view returns (uint256) {
+        return candidatesCount;
+    }
+
+    // Return total number of votes
+    function getTotalVotes() public view returns (uint256) {
+        return totalVotes;
+    }
+
+    // Return Contract Owner Address
+    function getOwner() external view returns (address) {
+        return Owner;
+    }
+
+    // The most important function - casting a vote
+    function vote(uint256 _candidateId) public {
         // Require that they haven't voted before
-        require(!voters[msg.sender].voted);
+        require(!voters[msg.sender].voted, "User has voted before");
 
         // Require voter to be authorized by the owner of the contract
-        require(voters[msg.sender].authorized == true);
+        require(
+            voters[msg.sender].authorized == true,
+            "User is not eligable to participate in the voting process"
+        );
 
         // Require a valid candidate
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
+        require(
+            _candidateId > 0 && _candidateId <= candidatesCount,
+            "Candidate selection is invalid"
+        );
 
         // Record that voter has voted
         voters[msg.sender].voted = true;
@@ -95,13 +129,34 @@ contract Election {
         voters[msg.sender].vote = _candidateId;
 
         // Update candidate vote count
-        candidates[_candidateId].voteCount ++;
-        
+        candidates[_candidateId].voteCount++;
+
         // incrementing the total number of votes
         totalVotes++;
 
         // handling voting interaction
         emit votedEvent(_candidateId);
+    }
+
+    // getting the ID of most voted candidate
+    function winnerProposal() public ownerOnly {
+        uint256 winingVoteCount = 0;
+        for (uint256 i = 0; i < candidatesCount; i++) {
+            if (candidates[i].voteCount > winingVoteCount) {
+                winingVoteCount = candidates[i].voteCount;
+                _winnerID = i;
+            }
+        }
+    }
+
+    // displaying the name of the winner
+    function winnerName() public view returns (string memory _winnerName) {
+        _winnerName = candidates[_winnerID].name;
+    }
+
+    // turning off the contract once the election has been finished
+    function close() public ownerOnly {
+        selfdestruct(msg.sender);
     }
 }
 //all rights reserved to Amr Ahmed Abd El Rahman
