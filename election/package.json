@@ -10,9 +10,7 @@
     "scripts": {
         "dev": "lite-server",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "npm build src",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d src"
     },
     "author": "",
     "license": "ISC",
