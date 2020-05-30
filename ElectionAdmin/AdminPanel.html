@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/Favi/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/Favi/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/Favi/favicon-16x16.png">
+    <link rel="manifest" href="../images/Favi/site.webmanifest">
+    <link rel="mask-icon" href="../images/Favi/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link href="../css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="../css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Dependencies-->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/truffle-contract.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/datepicker.js"></script>
+    <script src="../js/bootstrap-datepicker.js"></script>
+    <!--  jQuery -->
+
+</head>
+
+<body>
+    <div class="icon-bar">
+        <a href="https://www.facebook.com/britishuniversityegypt/" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="google"><i class="fa fa-google"></i></a>
+        <a href="https://www.linkedin.com/school/the-british-university-in-egypt/about/" class="linkedin"><i
+                class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/AmrAhmedA/Seecured" class="github"><i class="fa fa-github"></i></a>
+        <a href="ElectionAdmin/AdminPanel.html" class="useradmin"><i class="fa fa-users"></i></a>
+    </div>
+    <div class="container" style="width: 650px;">
+        <div class="row">
+            <img class="img-responsive center-block" src="../images/BUELogo.png" alt="Seecured Logo" height="350" width="350">
+            <div class="row-lg-12 text-center">
+                <h1> Admin Panel </h1>
+                <hr />
+                <div id="content">
+                    <form role="form">
+                        <div class="form-group col-sm-6">
+                            <label for="ElectionName">Election Name</label>
+                            <input class="form-control input-md" name="ElectionName" placeholder="Election">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <div id="filterDate2">
+                                <label for="ElectionName">Election Date</label>
+                                <!-- Datepicker as text field -->
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" class="datepicker form-control" placeholder="Election end-date">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Start Election </button>
+                    </form>
+                    <hr>
+                    <form onSubmit="App.addNewcandidate(); return false">
+                        <div class="form-group col-sm-4">
+                            <label for="candidatename">Candidate Name</label>
+                            <input class="form-control input-md" id="candidatename" placeholder="Name">
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="candidateid">Candidate ID</label>
+                            <input class="form-control input-md" id="candidateid" placeholder="ID">
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="candidatecomittee">Committee</label>
+                            <select id="candidatecomittee" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Scientific</option>
+                                <option>Arts</option>
+                                <option>Clubs</option>
+                                <option>Trips</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg "> Add Candidate </button>
+                    </form>
+                    <hr>
+                    <form role="form" onSubmit="App.authorizeStudent(); return false">
+                        <div class="form-group" style="display:inline;">
+                            <div class="input-group">
+                                <input class="form-control input-lg" id="studentaccount" name="candidateAccount" placeholder="Student Account">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary btn-lg">Authorize Student</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <br>
+                    <p id="accountAddress" class="text-center"></p>
+                    <img class="img-responsive center-block" src="../images/Seecured-Election-E-voting.png" alt="Seecured Logo" height="150" width="150">
+                    <p class="text-center">Powered by Seecured at BUE | All Rights Reserved to Amr A. Abdelrahman Gewaly &copy;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
