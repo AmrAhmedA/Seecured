@@ -60,6 +60,11 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * [Infura](https://infura.io/) - Running Ethereum node with an API key
 * [Go Ethereum - Geth](https://geth.ethereum.org/downloads/) - Running Ethereum full node
 
+## Web application 
+* [Seecured](https://AmrAhmedA.github.io/Seecured/) 
+
+## Future work 
+
 ## Supervised by 
 * Associate Professor Abeer Hamdy
 * Associate Professor Mostafa Salama
