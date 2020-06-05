@@ -49,6 +49,10 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * [Solidity](https://solidity.readthedocs.io/en/v0.6.3/) - High-level language for implementing smart contract
 * [Remix Ethereum](https://remix.ethereum.org/) - Smart contract IDE and debugger
 
+## Dev Dependencies 
+* [liteserver](https://www.npmjs.com/package/lite-server) - Lightweight development for web sync
+* [gh-pages](https://www.npmjs.com/package/gh-pages) - Github hosting service
+
 ## Mobile Application Prerequisites
 * [Flutter](https://flutter.dev/docs) - SDK for building high-performance crossplatform application
 * [Android Studio](https://developer.android.com/studio/features) - IDE for development
