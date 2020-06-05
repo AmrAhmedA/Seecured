@@ -3,3 +3,4 @@ npm-debug.log
 election/yarn-debug.log*
 election/yarn-error.log*
 election/build
+election/node_modules
