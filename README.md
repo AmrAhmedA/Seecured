@@ -10,7 +10,7 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * An immutable public ledger to store the voting information (i.e. eligibility white list, voting keys and votes).
 * Economic majority must reach consensus on a program's execution.
 
-## What is unique in this project?
+## What is this project about?
 <img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20traditional%20System.png" width="300" height="500"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20my%20System.png" width="300" height="500"> 
 
 ## Election Stages
@@ -41,6 +41,11 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * [Vscode](https://code.visualstudio.com/)
 * [Sublime](https://www.sublimetext.com/)
 
+## Dev Dependencies used 
+* [liteserver](https://www.npmjs.com/package/lite-server) - Lightweight development for web sync
+* [gh-pages](https://www.npmjs.com/package/gh-pages) - Github hosting service
+
+
 ## Web Application Prerequisites
 * [Truffle](https://www.trufflesuite.com/truffle) - Development framework 
 * [NodeJs](https://nodejs.org/en/) - Run time environment
@@ -48,10 +53,6 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * [Bootstrap](https://getbootstrap.com/) - Potent front-end framework for UI
 * [Solidity](https://solidity.readthedocs.io/en/v0.6.3/) - High-level language for implementing smart contract
 * [Remix Ethereum](https://remix.ethereum.org/) - Smart contract IDE and debugger
-
-## Dev Dependencies 
-* [liteserver](https://www.npmjs.com/package/lite-server) - Lightweight development for web sync
-* [gh-pages](https://www.npmjs.com/package/gh-pages) - Github hosting service
 
 ## Mobile Application Prerequisites
 * [Flutter](https://flutter.dev/docs) - SDK for building high-performance crossplatform application
@@ -66,7 +67,7 @@ Ethereum is a platform for Smart Contracts that provides the following:
 
 ## Web application 
 * [Seecured](https://AmrAhmedA.github.io/Seecured/) 
-
+ 
 ## Future work 
 
 ## Supervised by 
