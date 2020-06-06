@@ -34,12 +34,6 @@ contract Election {
     // Store candidates Count
     uint256 public candidatesCount;
 
-    // Store max number of votes for the winner
-    uint256 public winingVoteCount = 0;
-
-    // Store Election winner
-    uint256 public _winnerID;
-
     // Store voter's ballot
     mapping(address => Voter) public voters;
 
@@ -138,8 +132,8 @@ contract Election {
         emit votedEvent(_candidateId);
     }
 
-    // getting the ID of most voted candidate
-    function winnerProposal() public ownerOnly {
+    // counting total ballots for each candidate to get the ID of most voted candidate(winner)
+    function winnerProposal() public view ownerOnly returns (uint256 _winnerID) {
         uint256 winingVoteCount = 0;
         for (uint256 i = 0; i < candidatesCount; i++) {
             if (candidates[i].voteCount > winingVoteCount) {
@@ -151,7 +145,7 @@ contract Election {
 
     // displaying the name of the winner
     function winnerName() public view returns (string memory _winnerName) {
-        _winnerName = candidates[_winnerID].name;
+        _winnerName = candidates[winnerProposal()].name;
     }
 
     // turning off the contract once the election has been finished
