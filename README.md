@@ -11,6 +11,7 @@ Ethereum is a platform for Smart Contracts that provides the following:
 * Economic majority must reach consensus on a program's execution.
 
 ## What is this project about?
+This is a full stack web application(frontend + backend) + crossplatform mobile application(android & ios)
 <img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20traditional%20System.png" width="300" height="500"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<img src="https://github.com/AmrAhmedA/Seecured/blob/master/Diagrams/Diagrams%20for%20the%20system/Client%20Side%20Software%20Architecture/SA%20of%20my%20System.png" width="300" height="500"> 
 
 ## Election Stages
