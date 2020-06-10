@@ -70,6 +70,8 @@ This is a full stack web application(frontend + backend) + crossplatform mobile 
 * [Seecured](https://AmrAhmedA.github.io/Seecured/) 
  
 ## Future work 
+- [ ] Enhancing the application client-side by using SPA framework (React or angular)
+- [ ] Adding Extra functionalities for impaired individuals to participate in the voting process
 
 ## Supervised by 
 * Associate Professor Abeer Hamdy
