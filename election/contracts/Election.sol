@@ -144,7 +144,7 @@ contract Election {
     }
 
     // displaying the name of the winner
-    function winnerName() public view returns (string memory _winnerName) {
+    function winnerName() public view ownerOnly returns (string memory _winnerName) {
         _winnerName = candidates[winnerProposal()].name;
     }
 

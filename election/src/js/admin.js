@@ -60,7 +60,6 @@ App = {
             //   }
             // }, 100);
         });
-
     },
     addNewcandidate: function() {
         var candidatecomittee = $('#candidatecomittee').val();
@@ -82,6 +81,12 @@ App = {
             return instance.authorize(StudentAccount, {
                 from: App.account
             });
+        });
+    },
+    announceWinner: function() {
+        App.contracts.Election.deployed().then(function(instance) {
+            var x = instance.winnerName({from:App.account});
+            console.log(x);
         });
     }
 };
