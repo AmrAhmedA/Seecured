@@ -43,6 +43,7 @@ App = {
             App.contracts.Election = TruffleContract(election);
             // Connect provider to interact with contract
             App.contracts.Election.setProvider(App.web3Provider);
+            App.winnerEventListener();
             return App.render();
         });
     },
@@ -58,6 +59,28 @@ App = {
                     // Reload when a new vote is recorded
                     console.log("Hey Amr, It worked");
                     App.render();
+                } else {
+                    console.log("Error", error);
+                }
+            });
+        });
+    },
+    winnerEventListener: function() {
+        App.contracts.Election.deployed().then(function(instance) {
+            instance.winnerEvent({}, {
+                fromBlock: 0,
+                toBlock: 'latest'
+            }).watch(function(error, event) {
+                if (!error) {
+                    console.log("Winner has been announced");
+                    console.log("event triggered", event);
+                    instance.electionWinner.call().then(function(winnerBUE) {
+                        var loader = $("#loader");
+                        loader.empty();
+                        var result = `<h2 class='text-center'> The Winner is: ` + winnerBUE + `</h2>`
+                        loader.append(result);
+                        console.log("Amora");
+                    });
                 } else {
                     console.log("Error", error);
                 }

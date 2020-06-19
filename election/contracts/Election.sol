@@ -19,20 +19,23 @@ contract Election {
         uint256 vote;
     }
 
-    // Owner of the deployed Smart Contract (Election)
+    // Owner of the deployed smart contract (Election)
     address public Owner;
 
-    // Store Election name, in my case - BUE Student Union Election
+    // Store election name, in my case - BUE Student Union Election
     string public electionName;
 
-    // Store Election EndDate
+    // Store election end-date
     string public electionDate;
 
     // Store total number of votes
     uint256 public totalVotes;
 
-    // Store candidates Count
+    // Store candidates count
     uint256 public candidatesCount;
+
+    // Store winner name
+    string public electionWinner;
 
     // Store voter's ballot
     mapping(address => Voter) public voters;
@@ -54,7 +57,11 @@ contract Election {
         require(msg.sender == Owner, "Caller is not owner");
     }
 
+    // handling user vote through indexed event
     event votedEvent(uint256 indexed _candidateId);
+
+    // handling winner announcing event 
+    event winnerEvent();
 
     // Person who is calling this function is the owner of the contract and will authorize voters to participate in the election
     function authorize(address _person) public ownerOnly {
@@ -144,10 +151,11 @@ contract Election {
     }
 
     // displaying the name of the winner
-    function winnerName() public view ownerOnly returns (string memory _winnerName) {
-        _winnerName = candidates[winnerProposal()].name;
+    function winnerName() public ownerOnly {
+        electionWinner = candidates[winnerProposal()].name;
+        emit winnerEvent();
     }
-
+    
     // turning off the contract once the election has been finished
     function close() public ownerOnly {
         selfdestruct(msg.sender);
