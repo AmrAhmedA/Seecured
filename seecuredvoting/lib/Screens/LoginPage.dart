@@ -13,6 +13,9 @@ class _LoginState extends State<Login> {
 
   String name, password;
 
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -45,6 +48,8 @@ class _LoginState extends State<Login> {
                   onSaved: (text) {
                     name = text;
                   },
+                  focusNode: nameFocusNode,
+                  nextNode: passwordFocusNode,
                 ),
                 LoginField(
                   fieldIcon: Icon(
@@ -56,6 +61,7 @@ class _LoginState extends State<Login> {
                   onSaved: (text) {
                     password = text;
                   },
+                  focusNode: passwordFocusNode,
                 ),
                 Container(
                     width: 150,
@@ -91,7 +97,7 @@ class _LoginState extends State<Login> {
       timer.cancel();
       formKey.currentState.save();
       Navigator.pop(context);
-      if (name == "amr" && password == "454565amr") {
+      if (name == "a" && password == "a") {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {

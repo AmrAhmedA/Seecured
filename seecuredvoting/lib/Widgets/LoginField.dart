@@ -7,11 +7,15 @@ class LoginField extends StatefulWidget {
   String hinText;
   bool isPassword;
   Function onSaved;
+  FocusNode focusNode;
+  FocusNode nextNode;
 
   LoginField(
       {@required this.fieldIcon,
       this.hinText,
       this.isPassword = false,
+      this.focusNode,
+      this.nextNode,
       @required this.onSaved});
 
   @override
@@ -56,6 +60,12 @@ class _LoginFieldState extends State<LoginField> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     onSaved: widget.onSaved,
+                    focusNode: widget.focusNode,
+                    onFieldSubmitted: widget.nextNode != null
+                        ? (_) =>
+                            FocusScope.of(context).requestFocus(widget.nextNode)
+                        : null,
+                    textInputAction: widget.nextNode != null ? TextInputAction.next : TextInputAction.done,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: widget.hinText,
