@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
 
   void validate() {
     showLoadingIndicator();
-    Timer.periodic(Duration(seconds: 3), (timer) {
+    Timer.periodic(Duration(milliseconds: 1500), (timer) {
       print(timer.tick);
       timer.cancel();
       formKey.currentState.save();

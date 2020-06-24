@@ -1,15 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:seecuredvoting/Models/Candidate.dart';
 import 'package:seecuredvoting/main.dart';
 import 'package:web3dart/credentials.dart';
 import 'package:web3dart/web3dart.dart';
 import 'UserMainDrawer.dart';
 import 'package:http/http.dart';
-
-import 'package:path/path.dart' show join, dirname;
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,72 +15,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Candidate> candidates = List();
+
+  bool haveCandidates;
+
+  int selectedVoterId = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    getCandidates();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text('Seecured Election E-voting'),
-        centerTitle: true,
-        backgroundColor: Colors.indigo.withOpacity(0.8),
-      ),
-//      body: Image.asset("assets/image/candidate.jpg"),
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: hp(8, context)),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                buildCandidate(
-                  "assets/image/candidate1.jpg",
-                  "Candidate 1",
-                  () async {
-                    playground();
-//                    if (await showPopup("omar"))
-//                      print("Voted for omar");
-//                    else
-//                      print("Selection Canceled");
-                  },
-                ),
-                buildCandidate(
-                  "assets/image/candidate.jpg",
-                  "Candidate 2",
-                  () async {
-                    if (await showPopup("Amr"))
-                      print("Voted for Amr");
-                    else
-                      print("Selection Canceled");
-                  },
-                ),
-              ],
+      appBar: buildAppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: hp(5, context),
             ),
-          ),
-          Container(
-            height: hp(10, context),
-            color: Colors.transparent,
-          ),
-          Image.asset(
-            "assets/image/BUELOGO.png",
-            scale: 1,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: hp(4, context)),
-        ],
+            haveCandidates == null
+                ? Center(child: CircularProgressIndicator())
+                : haveCandidates
+                    ? buildBallot()
+                    : Center(
+                        child: Text(
+                            "Failed to load candidates. please try again later"),
+                      ),
+            SizedBox(
+              height: hp(5, context),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(
+            vertical: hp(4, context), horizontal: wp(4, context)),
+        child: Image.asset(
+          "assets/image/BUELOGO.png",
+          scale: 1,
+          fit: BoxFit.cover,
+        ),
       ),
       drawer: MainDrawer(),
     );
   }
 
-  Future<bool> showPopup(String candidate) async {
+  Future<bool> showVerificationPopup(String candidateName) async {
     bool answer = false;
     await showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text("Are You Sure?"),
-            content: Text("Do you want to vote for $candidate"),
+            content: Text("Do you want to vote for $candidateName"),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
@@ -104,48 +94,104 @@ class _HomePageState extends State<HomePage> {
     return answer;
   }
 
-  Widget buildCandidate(String image, String name, Function onPressed) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.red, width: 8)),
-              child: CircleAvatar(
-                backgroundImage: AssetImage(image),
-                radius: 75,
-              ),
-            ),
-            SizedBox(height: hp(2, context)),
-            RaisedButton(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: wp(2, context), vertical: hp(1.5, context)),
-                child: Text(name,
-                    style: TextStyle(color: Colors.white, fontSize: 17)),
-              ),
-              onPressed: onPressed,
-              color: Colors.red,
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0))),
-            ),
-            Spacer(),
-          ],
-        ),
+  Widget buildBallot() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: wp(5, context)),
+      child: Column(
+        children: <Widget>[
+          buildTable(),
+          SizedBox(
+            height: hp(4, context),
+          ),
+          buildVotingMenu(),
+          RaisedButton(
+            onPressed: () async {
+              String selectedCandidateName = candidates.firstWhere((candidate) {
+                return candidate.id == selectedVoterId;
+              }).name;
+
+              if (await showVerificationPopup(selectedCandidateName)) {
+                // TODO: send vote transaction
+                print("voting for $selectedVoterId");
+              } else {
+                // do nothing
+              }
+            },
+            child: Text("Vote"),
+            color: Colors.blue,
+          ),
+        ],
       ),
     );
   }
 
-  void playground() async {
+  Widget buildTable() {
+    return Table(
+      columnWidths: {
+        0: FractionColumnWidth(0.08),
+        1: FractionColumnWidth(0.48),
+        2: FractionColumnWidth(0.3),
+      },
+      border: TableBorder(
+        horizontalInside: BorderSide(color: Colors.black45, width: 1),
+      ),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [
+        TableRow(children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: hp(1, context)),
+            child: Text("ID", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          ),
+          Text("Name", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          Text("Committee", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          Text("Votes", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+        ]),
+        ...buildCandidatesRows(),
+      ],
+    );
+  }
+
+  buildCandidatesRows() {
+    return candidates.map((candidate) {
+      return TableRow(children: [
+        Text(candidate.id.toString()),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: hp(2, context)),
+          child: Text(candidate.name),
+        ),
+        Text(candidate.committee),
+        Text(candidate.votes.toString(), textAlign: TextAlign.center),
+      ]);
+    }).toList();
+  }
+
+  Widget buildVotingMenu() {
+    return DropdownButton(
+      onChanged: (selected) {
+        setState(() {
+          selectedVoterId = selected;
+        });
+      },
+      value: selectedVoterId,
+      style: TextStyle(color: Colors.black),
+      underline: Divider(color: Colors.red),
+      items: candidates.map((candidate) {
+        return DropdownMenuItem(
+          value: candidate.id,
+          child: Text(candidate.name),
+        );
+      }).toList(),
+    );
+  }
+
+  void getCandidates() async {
     /// For extracting public key from private key
     Credentials credentials = EthPrivateKey.fromHex(
         "a0af77a6ea033a316c6e883dbcbc87c95f6b3a160017149eaca22c6c49b2f7d9");
     var address = await credentials.extractAddress();
     print(address.hex);
+
+    /// Initializing web3
 
     var apiUrl = "https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c";
 
@@ -166,25 +212,79 @@ class _HomePageState extends State<HomePage> {
     String data =
         await DefaultAssetBundle.of(context).loadString("Election.json");
     final jsonResult = json.decode(data);
-    print(jsonResult);
+//    print(jsonResult);
 
     final client = Web3Client(apiUrl, Client());
 
     final contract = DeployedContract(
-        ContractAbi.fromJson(json.encode(jsonResult['abi']), jsonResult['contractName']), contractAddr);
+        ContractAbi.fromJson(
+            json.encode(jsonResult['abi']), jsonResult['contractName']),
+        contractAddr);
 
     final numCandidatesFunction = contract.function('getNumCandidates');
     final candidatesFunction = contract.function('candidates');
 
-    final numCandidates = await client.call(
-        contract: contract, function: numCandidatesFunction, params: []);
+    final numCandidates = await client
+        .call(contract: contract, function: numCandidatesFunction, params: []);
     print(numCandidates);
     print('We have ${numCandidates.first} candidates');
 
-    final candidates = await client.call(
-        contract: contract, function: candidatesFunction, params: [BigInt.from(1)]);
-    print(candidates);
-    print('those are the candidates ${candidates.first} candidates');
+    try {
+      for (int i = 1; i <= num.parse(numCandidates.first.toString()); i++) {
+        final candidate = await client.call(
+            contract: contract,
+            function: candidatesFunction,
+            params: [BigInt.from(i)]);
+
+        candidates.add(Candidate(
+            id: num.parse(candidate[0].toString()),
+            name: candidate[1],
+            cid: num.parse(candidate[2].toString()),
+            committee: candidate[3],
+            votes: num.parse(candidate[4].toString())));
+      }
+      setState(() {
+        haveCandidates = true;
+      });
+    } catch (err) {
+      print(err.toString());
+      setState(() {
+        haveCandidates = false;
+      });
+    }
+  }
+
+  buildAppBar() {
+    return PreferredSize(
+      preferredSize: Size(wp(100, context), hp(10, context)),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: wp(4, context), vertical: hp(1, context)),
+          child: Row(
+            children: <Widget>[
+              Builder(
+                builder: (context) {
+                  return GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    child: Icon(Icons.menu),
+                  );
+                },
+              ),
+              Spacer(),
+              Text("Seecured E-Voting", style: TextStyle(fontFamily: "Gotham"),),
+              Spacer(),
+              Image.asset(
+                "assets/image/Seecured.png",
+                height: hp(8, context),
+                width: wp(20, context),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 //class _Counter extends State<HomePage> {

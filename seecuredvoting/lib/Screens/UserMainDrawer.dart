@@ -31,7 +31,7 @@ class MainDrawer extends StatelessWidget {
                   Text(
                     'Amr Ahmed Gewaly',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 18,
                       color: Colors.white,
                     ),
                   ),
@@ -46,34 +46,34 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person, size: 40),
+            leading: Icon(Icons.person, size: 30),
             title: Text(
               'Profile',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
             onTap: null,
           ),
           ListTile(
-            leading: Icon(Icons.settings, size: 40),
+            leading: Icon(Icons.settings, size: 30),
             title: Text(
               'Settings',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
             onTap: null,
           ),
           ListTile(
-            leading: Icon(Icons.help, size: 40),
+            leading: Icon(Icons.help, size: 30),
             title: Text(
               'Help',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
             onTap: null,
           ),
           ListTile(
-            leading: Icon(Icons.arrow_back, size: 40),
+            leading: Icon(Icons.arrow_back, size: 30),
             title: Text(
               'Logout',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
             onTap: () => Navigator.push(
               context,
@@ -81,10 +81,10 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.copyright, size: 40),
+            leading: Icon(Icons.copyright, size: 30),
             title: Text(
               'About',
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 18),
             ),
             onTap: null,
           ),

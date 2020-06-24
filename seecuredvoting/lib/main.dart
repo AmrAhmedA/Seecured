@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seecuredvoting/Screens/HomePage.dart';
 import 'Screens/LoginPage.dart';
 
 void main() => runApp(MyApp());
@@ -8,11 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'AmrAhmedGraduation ProjectDemo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      home: HomePage(),
     );
   }
 }
