@@ -140,11 +140,19 @@ class _HomePageState extends State<HomePage> {
         TableRow(children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: hp(1, context)),
-            child: Text("ID", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+            child: Text("ID",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontFamily: "Gotham")),
           ),
-          Text("Name", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
-          Text("Committee", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
-          Text("Votes", style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          Text("Name",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          Text("Committee",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
+          Text("Votes",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
         ]),
         ...buildCandidatesRows(),
       ],
@@ -259,7 +267,8 @@ class _HomePageState extends State<HomePage> {
       preferredSize: Size(wp(100, context), hp(10, context)),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: wp(4, context), vertical: hp(1, context)),
+          padding: EdgeInsets.symmetric(
+              horizontal: wp(4, context), vertical: hp(1, context)),
           child: Row(
             children: <Widget>[
               Builder(
@@ -268,12 +277,21 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Scaffold.of(context).openDrawer();
                     },
-                    child: Icon(Icons.menu),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.menu, size: 25),
+                    ),
                   );
                 },
               ),
               Spacer(),
-              Text("Seecured E-Voting", style: TextStyle(fontFamily: "Gotham"),),
+              Text(
+                "Seecured E-Voting",
+                style: TextStyle(
+                    fontFamily: "Gotham",
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
               Spacer(),
               Image.asset(
                 "assets/image/Seecured.png",
