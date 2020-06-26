@@ -35,6 +35,22 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Image.asset(
+              "assets/image/BUE.png",
+              scale: 1,
+              width: 400,
+              height: 200,
+            ),
+            SizedBox(
+              height: hp(5, context),
+            ),
+            Text(
+              "Student Union Election",
+              style: TextStyle(
+                  fontFamily: "Gotham",
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,fontSize: 22.0),
+            ),
             SizedBox(
               height: hp(5, context),
             ),
@@ -54,11 +70,11 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: hp(4, context), horizontal: wp(4, context)),
+            vertical: hp(2, context), horizontal: wp(2, context)),
         child: Image.asset(
           "assets/image/BUELOGO.png",
+          height: 80,
           scale: 1,
-          fit: BoxFit.cover,
         ),
       ),
       drawer: MainDrawer(),
@@ -111,7 +127,8 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               onPressed: () async {
-                String selectedCandidateName = candidates.firstWhere((candidate) {
+                String selectedCandidateName =
+                    candidates.firstWhere((candidate) {
                   return candidate.id == selectedVoterId;
                 }).name;
 
