@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Are You Sure?"),
+            title: Text("Are you sure?"),
             content: Text("Do you want to vote for $candidateName"),
             actions: <Widget>[
               FlatButton(
@@ -104,7 +104,8 @@ class _HomePageState extends State<HomePage> {
             height: hp(4, context),
           ),
           buildVotingMenu(),
-          RaisedButton(
+          RaisedButton(shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
             onPressed: () async {
               String selectedCandidateName = candidates.firstWhere((candidate) {
                 return candidate.id == selectedVoterId;
@@ -112,13 +113,14 @@ class _HomePageState extends State<HomePage> {
 
               if (await showVerificationPopup(selectedCandidateName)) {
                 // TODO: send vote transaction
-                print("voting for $selectedVoterId");
+                print("Voting for $selectedVoterId");
               } else {
                 // do nothing
               }
             },
-            child: Text("Vote"),
-            color: Colors.blue,
+            child: Text("Vote", style: TextStyle(fontFamily: "Gotham"),),
+            color: Colors.red,
+            textColor: Colors.white,
           ),
         ],
       ),
@@ -133,7 +135,7 @@ class _HomePageState extends State<HomePage> {
         2: FractionColumnWidth(0.3),
       },
       border: TableBorder(
-        horizontalInside: BorderSide(color: Colors.black45, width: 1),
+        horizontalInside: BorderSide(color: Colors.black, width: 1),
       ),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: [
@@ -147,7 +149,7 @@ class _HomePageState extends State<HomePage> {
           Text("Name",
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
-          Text("Committee",
+          Text("Committee", textAlign: TextAlign.center,
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
           Text("Votes",
@@ -162,33 +164,38 @@ class _HomePageState extends State<HomePage> {
   buildCandidatesRows() {
     return candidates.map((candidate) {
       return TableRow(children: [
-        Text(candidate.id.toString()),
+        Text(candidate.id.toString(), style:TextStyle(fontFamily: "Gotham") ,),
         Padding(
           padding: EdgeInsets.symmetric(vertical: hp(2, context)),
-          child: Text(candidate.name),
+          child: Text(candidate.name, style: TextStyle(fontFamily: "Gotham"),),
         ),
-        Text(candidate.committee),
-        Text(candidate.votes.toString(), textAlign: TextAlign.center),
+        Text(candidate.committee, textAlign:TextAlign.center, style: TextStyle(fontFamily: "Gotham"),),
+        Text(candidate.votes.toString(), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
       ]);
     }).toList();
   }
 
   Widget buildVotingMenu() {
-    return DropdownButton(
-      onChanged: (selected) {
-        setState(() {
-          selectedVoterId = selected;
-        });
-      },
-      value: selectedVoterId,
-      style: TextStyle(color: Colors.black),
-      underline: Divider(color: Colors.red),
-      items: candidates.map((candidate) {
-        return DropdownMenuItem(
-          value: candidate.id,
-          child: Text(candidate.name),
-        );
-      }).toList(),
+    return Column(
+      children: <Widget>[
+        Text("Select Candidate",style: TextStyle(fontFamily: "Gotham",fontWeight: FontWeight.bold, color: Colors.red),),
+        DropdownButton(
+          onChanged: (selected) {
+            setState(() {
+              selectedVoterId = selected;
+            });
+          },
+          value: selectedVoterId,
+          style: TextStyle(color: Colors.black),
+          underline: Divider(color: Colors.red),
+          items: candidates.map((candidate) {
+            return DropdownMenuItem(
+              value: candidate.id,
+              child: Text(candidate.name,style: TextStyle(fontFamily: "Gotham"),),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 
@@ -279,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.menu, size: 25),
+                      child: Icon(Icons.menu, size: 30),
                     ),
                   );
                 },
@@ -289,14 +296,14 @@ class _HomePageState extends State<HomePage> {
                 "Seecured E-Voting",
                 style: TextStyle(
                     fontFamily: "Gotham",
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
               Spacer(),
               Image.asset(
                 "assets/image/Seecured.png",
                 height: hp(8, context),
-                width: wp(20, context),
+                width: wp(22, context),
               ),
             ],
           ),
