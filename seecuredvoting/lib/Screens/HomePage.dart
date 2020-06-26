@@ -104,23 +104,31 @@ class _HomePageState extends State<HomePage> {
             height: hp(4, context),
           ),
           buildVotingMenu(),
-          RaisedButton(shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            onPressed: () async {
-              String selectedCandidateName = candidates.firstWhere((candidate) {
-                return candidate.id == selectedVoterId;
-              }).name;
+          ButtonTheme(
+            minWidth: 150.0,
+            height: 40.0,
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              onPressed: () async {
+                String selectedCandidateName = candidates.firstWhere((candidate) {
+                  return candidate.id == selectedVoterId;
+                }).name;
 
-              if (await showVerificationPopup(selectedCandidateName)) {
-                // TODO: send vote transaction
-                print("Voting for $selectedVoterId");
-              } else {
-                // do nothing
-              }
-            },
-            child: Text("Vote", style: TextStyle(fontFamily: "Gotham"),),
-            color: Colors.red,
-            textColor: Colors.white,
+                if (await showVerificationPopup(selectedCandidateName)) {
+                  // TODO: send vote transaction
+                  print("Voting for $selectedVoterId");
+                } else {
+                  // do nothing
+                }
+              },
+              child: Text(
+                "Vote",
+                style: TextStyle(fontFamily: "Gotham"),
+              ),
+              color: Colors.red,
+              textColor: Colors.white,
+            ),
           ),
         ],
       ),
@@ -149,7 +157,8 @@ class _HomePageState extends State<HomePage> {
           Text("Name",
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
-          Text("Committee", textAlign: TextAlign.center,
+          Text("Committee",
+              textAlign: TextAlign.center,
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontFamily: "Gotham")),
           Text("Votes",
@@ -164,13 +173,27 @@ class _HomePageState extends State<HomePage> {
   buildCandidatesRows() {
     return candidates.map((candidate) {
       return TableRow(children: [
-        Text(candidate.id.toString(), style:TextStyle(fontFamily: "Gotham") ,),
+        Text(
+          candidate.id.toString(),
+          style: TextStyle(fontFamily: "Gotham"),
+        ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: hp(2, context)),
-          child: Text(candidate.name, style: TextStyle(fontFamily: "Gotham"),),
+          child: Text(
+            candidate.name,
+            style: TextStyle(fontFamily: "Gotham"),
+          ),
         ),
-        Text(candidate.committee, textAlign:TextAlign.center, style: TextStyle(fontFamily: "Gotham"),),
-        Text(candidate.votes.toString(), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
+        Text(
+          candidate.committee,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: "Gotham"),
+        ),
+        Text(
+          candidate.votes.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ]);
     }).toList();
   }
@@ -178,7 +201,13 @@ class _HomePageState extends State<HomePage> {
   Widget buildVotingMenu() {
     return Column(
       children: <Widget>[
-        Text("Select Candidate",style: TextStyle(fontFamily: "Gotham",fontWeight: FontWeight.bold, color: Colors.red),),
+        Text(
+          "Select Candidate",
+          style: TextStyle(
+              fontFamily: "Gotham",
+              fontWeight: FontWeight.bold,
+              color: Colors.red),
+        ),
         DropdownButton(
           onChanged: (selected) {
             setState(() {
@@ -191,7 +220,10 @@ class _HomePageState extends State<HomePage> {
           items: candidates.map((candidate) {
             return DropdownMenuItem(
               value: candidate.id,
-              child: Text(candidate.name,style: TextStyle(fontFamily: "Gotham"),),
+              child: Text(
+                candidate.name,
+                style: TextStyle(fontFamily: "Gotham"),
+              ),
             );
           }).toList(),
         ),

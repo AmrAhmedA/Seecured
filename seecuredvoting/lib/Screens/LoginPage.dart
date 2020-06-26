@@ -33,12 +33,11 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Material(
-                    child: Image.asset(
-                  'assets/image/Seecured.png',
+                    Image.asset(
+                      'assets/image/Seecured.png',
                   width: 300,
                   height: 100,
-                )),
+                ),
                 LoginField(
                   fieldIcon: Icon(
                     Icons.person,
