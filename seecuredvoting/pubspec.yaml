@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   fl_chart: ^0.3.4
   web3dart: ^1.2.3
+  url_launcher: ^5.4.11
+
 
 
 

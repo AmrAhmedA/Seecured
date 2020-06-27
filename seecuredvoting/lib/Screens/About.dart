@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seecuredvoting/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _AboutState extends State<About> {
               padding: EdgeInsets.symmetric(
                   vertical: hp(0, context), horizontal: hp(5, context)),
               child: Text(
-                'Dr. Abeer Hamdy - Dr Mostafa Salama',
+                'Dr. Abeer Hamdy - Dr. Mostafa Salama',
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: "Gotham",
@@ -49,24 +50,34 @@ class _AboutState extends State<About> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,//Center Row contents horizontally,
-                  crossAxisAlignment: CrossAxisAlignment.center,//Center Row contents vertically,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/image/github_Logo.png",
-                          width: 100,
-                          height: 250,
-                        ),
-                        Text("AmrAhmedA/Seecured", style: TextStyle(color: Colors.black, fontFamily: "Gotham", fontSize: 16, fontWeight: FontWeight.bold ),)
-                      ],
-                    ),
-                  ],
-                ),
+            SizedBox(
+              height: hp(3, context),
             ),
+            Column(
+              children: <Widget>[
+                Image.asset(
+                  "assets/image/github_Logo.png",
+                  width: 100,
+                  height: 120,
+                ),
+                GestureDetector(
+                    child: Text(
+                      "AmrAhmedA/Seecured",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Gotham",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () =>
+                        launch('https://github.com/AmrAhmedA/Seecured'))
+              ,
+              SizedBox(
+                height: hp(2, context),
+              )
+              ,
+                Image.asset("assets/image/Seecured.png",width: 200,)],
+            )
           ],
         ),
       ),
