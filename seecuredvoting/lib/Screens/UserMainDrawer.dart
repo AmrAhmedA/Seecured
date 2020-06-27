@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seecuredvoting/Screens/About.dart';
 import 'LoginPage.dart';
 class MainDrawer extends StatelessWidget {
   @override
@@ -86,7 +87,10 @@ class MainDrawer extends StatelessWidget {
               'About',
               style: TextStyle(fontSize: 18),
             ),
-            onTap: null,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => About()),
+            ),
           ),
         ],
       ),
