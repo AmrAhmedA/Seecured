@@ -57,7 +57,11 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               child: haveCandidates == null
-                  ? Center(child: CircularProgressIndicator())
+                  ? Center(
+                      child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: hp(8, context)),
+                      child: CircularProgressIndicator(),
+                    ))
                   : haveCandidates
                       ? buildBallot()
                       : Center(
@@ -162,7 +166,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildTable() {
     return Table(
       columnWidths: {
-        0: FractionColumnWidth(0.08),
+        0: FractionColumnWidth(0.09),
         1: FractionColumnWidth(0.48),
         2: FractionColumnWidth(0.3),
       },
