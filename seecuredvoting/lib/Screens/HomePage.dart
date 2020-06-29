@@ -49,19 +49,27 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                   fontFamily: "Gotham",
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,fontSize: 22.0),
+                  color: Colors.red,
+                  fontSize: 22.0),
             ),
             SizedBox(
               height: hp(5, context),
             ),
-            haveCandidates == null
-                ? Center(child: CircularProgressIndicator())
-                : haveCandidates
-                    ? buildBallot()
-                    : Center(
-                        child: Text(
-                            "Failed to load candidates. please try again later"),
-                      ),
+            Container(
+              child: haveCandidates == null
+                  ? Center(child: CircularProgressIndicator())
+                  : haveCandidates
+                      ? buildBallot()
+                      : Center(
+                          child: Text(
+                            "Failed to load candidates, please try again later",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          ),
+                        ),
+            ),
             SizedBox(
               height: hp(5, context),
             ),
@@ -131,7 +139,6 @@ class _HomePageState extends State<HomePage> {
                     candidates.firstWhere((candidate) {
                   return candidate.id == selectedVoterId;
                 }).name;
-
                 if (await showVerificationPopup(selectedCandidateName)) {
                   // TODO: send vote transaction
                   print("Voting for $selectedVoterId");
@@ -197,7 +204,7 @@ class _HomePageState extends State<HomePage> {
         Padding(
           padding: EdgeInsets.symmetric(vertical: hp(2, context)),
           child: Text(
-            candidate.name,
+            candidate.name + " - " + candidate.cid.toString(),
             style: TextStyle(fontFamily: "Gotham"),
           ),
         ),
@@ -238,7 +245,7 @@ class _HomePageState extends State<HomePage> {
             return DropdownMenuItem(
               value: candidate.id,
               child: Text(
-                candidate.name,
+                candidate.name + " - " + candidate.cid.toString(),
                 style: TextStyle(fontFamily: "Gotham"),
               ),
             );

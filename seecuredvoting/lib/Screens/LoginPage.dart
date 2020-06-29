@@ -33,8 +33,8 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                    Image.asset(
-                      'assets/image/Seecured.png',
+                Image.asset(
+                  'assets/image/Seecured.png',
                   width: 300,
                   height: 100,
                 ),
@@ -104,6 +104,7 @@ class _LoginState extends State<Login> {
       }
     });
   }
+
   void showPopup() async {
     await showDialog(
         context: context,
@@ -122,6 +123,7 @@ class _LoginState extends State<Login> {
           );
         });
   }
+
   void showLoadingIndicator() {
     showDialog(
         context: context,
