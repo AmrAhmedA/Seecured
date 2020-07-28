@@ -44,7 +44,7 @@ App = {
             // Connect provider to interact with contract
             App.contracts.Election.setProvider(App.web3Provider);
             App.winnerEventListener();
-            console.log("a7a");
+            console.log("Testing");
             return App.render();
         });
     },
