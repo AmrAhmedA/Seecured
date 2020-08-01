@@ -43,6 +43,8 @@ App = {
             App.contracts.Election = TruffleContract(election);
             // Connect provider to interact with contract
             App.contracts.Election.setProvider(App.web3Provider);
+            App.winnerEventListener();
+            console.log("Testing");
             return App.render();
         });
     },
@@ -64,6 +66,28 @@ App = {
             });
         });
     },
+    winnerEventListener: function() {
+        App.contracts.Election.deployed().then(function(instance) {
+            instance.winnerEvent({}, {
+                fromBlock: 0,
+                toBlock: 'latest'
+            }).watch(function(error, event) {
+                if (!error) {
+                    console.log("Winner has been announced");
+                    console.log("event triggered", event);
+                    instance.electionWinner.call().then(function(winnerBUE) {
+                        var loader = $("#loader");
+                        loader.empty();
+                        var result = `<h2 class='text-center'> The Winner is: ` + winnerBUE + `</h2>`
+                        loader.append(result);
+                        console.log("Amora");
+                    });
+                } else {
+                    console.log("Error", error);
+                }
+            });
+        });
+    },
     render: function() {
         var electionInstance;
         var loader = $("#loader");
@@ -79,6 +103,9 @@ App = {
                 $("#accountAddress").html("Your Account: " + account);
             }
         });
+
+        // Load Timer Data
+        App.electionTimer();
 
         // Load contract data
         App.contracts.Election.deployed().then(function(instance) {
@@ -116,6 +143,7 @@ App = {
             console.log("----Checking Voter Status----");
             console.log("Eligibility to vote: " + isEligable);
             console.log("Voted: " + hasVoted);
+
             // Do not allow a user to vote
             if (!isEligable || hasVoted) {
                 $('form').hide();
@@ -125,6 +153,58 @@ App = {
         }).catch(function(error) {
             console.warn(error);
             alert("Sorry Amr, You Need to Focus More");
+        });
+    },
+    electionTimer: function() {
+        App.contracts.Election.deployed().then(function(instance) {
+            electionInstance = instance;
+            return electionInstance.electionDate();
+        }).then(function(electionDate) {
+            console.log("Election End-Date: " + electionDate);
+
+            // extracting election day
+            var electionDay = electionDate.slice(0, 2);
+
+            // extracting election month    
+            var electionMonth = electionDate.slice(3, 5);
+
+            // extracting election year
+            var electionYear = electionDate.slice(6, 10);
+
+            console.log(electionDay);
+            // set the date we're counting down to
+            var target_date = new Date(electionDay + ',' + electionMonth + ',' + electionYear).getTime();
+
+            // variables for time units
+            var days, hours, minutes, seconds;
+
+            // get tag element
+            var countdown = document.getElementById('countdown');
+
+            // update the tag with id "countdown" every 1 second
+            setInterval(function() {
+
+                // find the amount of "seconds" between now and target
+                var current_date = new Date().getTime();
+                var seconds_left = (target_date - current_date) / 1000;
+
+                // do some time calculations
+                days = parseInt(seconds_left / 86400);
+                seconds_left = seconds_left % 86400;
+
+                hours = parseInt(seconds_left / 3600);
+                seconds_left = seconds_left % 3600;
+
+                minutes = parseInt(seconds_left / 60);
+                seconds = parseInt(seconds_left % 60);
+
+                // format countdown string + set tag value
+                countdown.innerHTML = '<span class="days">' + days + ' <label>Days</label></span> <span class="hours">' + hours + ' <label>Hours</label></span> <span class="minutes">' +
+                    minutes + ' <label>Minutes</label></span> <span class="seconds">' + seconds + ' <label>Seconds</label></span>';
+
+            }, 1000);
+        }).catch(function(error) {
+            console.warn(error);
         });
     },
     castVote: function() {

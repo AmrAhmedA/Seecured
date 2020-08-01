@@ -60,7 +60,6 @@ App = {
             //   }
             // }, 100);
         });
-
     },
     addNewcandidate: function() {
         var candidatecomittee = $('#candidatecomittee').val();
@@ -74,6 +73,7 @@ App = {
             alert("Candidate Added Successfully");
         }).catch(function(err) {
             console.error(err);
+            alert("Error Adding Candidate");
         });
     },
     authorizeStudent: function() {
@@ -82,8 +82,32 @@ App = {
             return instance.authorize(StudentAccount, {
                 from: App.account
             });
+        }).catch(function(error) {
+            console.error(error);
+            alert("Error Authorizing Candidate");
+        });
+    },
+    announceWinner: function() {
+        App.contracts.Election.deployed().then(async function(instance) {
+            var x = await instance.winnerName({ from: App.account });
+            console.log(x);
+            instance.electionWinner.call().then(function(winnerBUE) {
+                alert("Election Winner is: " + winnerBUE);
+            });
+        }).catch(function(error) {
+            console.error(error);
+            alert("Error Announcing the Winner");
+        });
+    },
+    endElection: function() {
+        App.contracts.Election.deployed().then(async function(instance) {
+            instance.close({ from: App.account });
+        }).catch(function(error) {
+            console.error(error);
+            alert("Error Ending Election");
         });
     }
+
 };
 
 function reloadPage() {
