@@ -146,6 +146,7 @@ class _HomePageState extends State<HomePage> {
                 if (await showVerificationPopup(selectedCandidateName)) {
                   // TODO: send vote transaction
                   print("Voting for $selectedVoterId");
+                  voteTransaction(selectedVoterId);
                 } else {
                   // do nothing
                 }
@@ -259,6 +260,62 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void voteTransaction(int selectedVoterId) async {
+    /// For extracting public key from private key
+    Credentials credentials = EthPrivateKey.fromHex(
+        "61e1adbbb48e344e600ac7ee1b8aa7782d4db6e52a276d16e2a125ca14987a45");
+    var address = await credentials.extractAddress();
+    print(address.hex);
+
+    /// Initializing web3
+
+    var apiUrl = "https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c";
+
+    var httpClient = new Client();
+    var ethClient = new Web3Client(apiUrl, httpClient);
+
+    /// For getting the current balance
+    EtherAmount balance = await ethClient.getBalance(address);
+    print(balance.getValueInUnit(EtherUnit.ether));
+
+    final EthereumAddress contractAddr =
+    EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
+
+    String data =
+    await DefaultAssetBundle.of(context).loadString("Election.json");
+    final jsonResult = json.decode(data);
+//    print(jsonResult);
+
+    final client = Web3Client(apiUrl, Client());
+
+    final contract = DeployedContract(
+        ContractAbi.fromJson(
+            json.encode(jsonResult['abi']), jsonResult['contractName']),
+        contractAddr);
+
+    final voteFunction = contract.function('vote');
+
+    try {
+      var txHash = await client.sendTransaction(
+        credentials,
+        Transaction.callContract(
+          contract: contract,
+          function: voteFunction,
+          parameters: [BigInt.from(selectedVoterId)],
+          from: address,
+          maxGas: 1000000,
+        ),
+        fetchChainIdFromNetworkId: true,
+      );
+      await Future.delayed(const Duration(seconds: 20));
+      var transactionReceipt = await ethClient.getTransactionReceipt(txHash);
+      print("Transaction receipt status: " + transactionReceipt.status.toString());
+    }catch(err){
+      print(err.toString());
+    }
+
+
+  }
   void getCandidates() async {
     /// For extracting public key from private key
     Credentials credentials = EthPrivateKey.fromHex(
@@ -282,7 +339,7 @@ class _HomePageState extends State<HomePage> {
     print(networkId);
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x7ec18be60161f17414103ac70f2413da96bc7720');
+        EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
 
     String data =
         await DefaultAssetBundle.of(context).loadString("Election.json");
