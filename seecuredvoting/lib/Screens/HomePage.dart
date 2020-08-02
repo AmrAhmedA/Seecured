@@ -265,10 +265,9 @@ class _HomePageState extends State<HomePage> {
     Credentials credentials = EthPrivateKey.fromHex(
         "61e1adbbb48e344e600ac7ee1b8aa7782d4db6e52a276d16e2a125ca14987a45");
     var address = await credentials.extractAddress();
-    print(address.hex);
+    print("Account Address: " + address.hex);
 
     /// Initializing web3
-
     var apiUrl = "https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c";
 
     var httpClient = new Client();
@@ -276,13 +275,15 @@ class _HomePageState extends State<HomePage> {
 
     /// For getting the current balance
     EtherAmount balance = await ethClient.getBalance(address);
-    print(balance.getValueInUnit(EtherUnit.ether));
+    var amount = balance.getValueInUnit(EtherUnit.ether);
+    print('Balance before : ${balance.getInWei} wei (${balance.getValueInUnit(EtherUnit.ether)} ether)');
 
     final EthereumAddress contractAddr =
-    EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
+        EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
 
+    /// Loading ABI
     String data =
-    await DefaultAssetBundle.of(context).loadString("Election.json");
+        await DefaultAssetBundle.of(context).loadString("Election.json");
     final jsonResult = json.decode(data);
 //    print(jsonResult);
 
@@ -293,35 +294,62 @@ class _HomePageState extends State<HomePage> {
             json.encode(jsonResult['abi']), jsonResult['contractName']),
         contractAddr);
 
-    final voteFunction = contract.function('vote');
 
+    var networkId = await client.getNetworkId();
+    print('networkId: $networkId');
+
+    final voteFunction = contract.function('vote');
+    final voted = contract.event('votedEvent');
+
+    var nonce = await client.getTransactionCount(address);
+    print('nonce: $nonce');
+    print("Test1");
     try {
       var txHash = await client.sendTransaction(
         credentials,
         Transaction.callContract(
-          contract: contract,
-          function: voteFunction,
-          parameters: [BigInt.from(selectedVoterId)],
-          from: address,
-          maxGas: 1000000,
-        ),
+            contract: contract,
+            function: voteFunction,
+            parameters: [BigInt.from(selectedVoterId)],
+            gasPrice:
+                EtherAmount.fromUnitAndValue(EtherUnit.gwei, BigInt.from(6)),
+//            nonce: await client.getTransactionCount(address,
+//                atBlock: BlockNum.pending()),
+//            maxGas: 1000000,
+            nonce: 9,
+            from: address),
         fetchChainIdFromNetworkId: true,
       );
-      await Future.delayed(const Duration(seconds: 20));
-      var transactionReceipt = await ethClient.getTransactionReceipt(txHash);
-      print("Transaction receipt status: " + transactionReceipt.status.toString());
-    }catch(err){
+      print("Test2");
+      print('transaction hash: $txHash');
+      await Future.delayed(const Duration(seconds: 5));
+//      await Future.delayed(const Duration(seconds: 20));
+//      final votedEvent = client
+//          .events(FilterOptions.events(contract: contract, event: voted))
+//          .take(1)
+//          .listen((event) {
+//        print("Event Fired");
+//      });
+//      await votedEvent.asFuture();
+//      await votedEvent.cancel();
+//
+      var transactionReceipt = await client.getTransactionReceipt(txHash);
+      print('Transaction receipt: $transactionReceipt');
+
+      balance = await client.getBalance(address);
+      print(
+          'Balance after transaction: ${balance.getInWei} wei (${balance.getValueInUnit(EtherUnit.ether)} ether)');
+    } catch (err) {
       print(err.toString());
     }
-
-
   }
+
   void getCandidates() async {
     /// For extracting public key from private key
     Credentials credentials = EthPrivateKey.fromHex(
         "a0af77a6ea033a316c6e883dbcbc87c95f6b3a160017149eaca22c6c49b2f7d9");
     var address = await credentials.extractAddress();
-    print(address.hex);
+    print('Account public address: ${address.hex}');
 
     /// Initializing web3
 
@@ -332,7 +360,7 @@ class _HomePageState extends State<HomePage> {
 
     /// For getting the current balance
     EtherAmount balance = await ethClient.getBalance(address);
-    print(balance.getValueInUnit(EtherUnit.ether));
+    print('Balance: ${balance.getValueInUnit(EtherUnit.ether)}');
 
     /// For getting the network Id
     int networkId = await ethClient.getNetworkId();
@@ -359,7 +387,7 @@ class _HomePageState extends State<HomePage> {
     final numCandidates = await client
         .call(contract: contract, function: numCandidatesFunction, params: []);
     print(numCandidates);
-    print('We have ${numCandidates.first} candidates');
+    print('Total number of candidates: ${numCandidates.first}');
 
     try {
       for (int i = 1; i <= num.parse(numCandidates.first.toString()); i++) {
