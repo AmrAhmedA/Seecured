@@ -64,6 +64,9 @@ contract Election {
     // handling winner announcing event 
     event winnerEvent();
 
+    // handling ending election event 
+    event endElection();
+
     // Person who is calling this function is the owner of the contract and will authorize voters to participate in the election
     function authorize(address _person) public ownerOnly {
         voters[_person].authorized = true;
@@ -159,6 +162,7 @@ contract Election {
     
     // turning off the contract once the election has been finished
     function close() public ownerOnly {
+        emit endElection();
         selfdestruct(msg.sender);
     }
 }
