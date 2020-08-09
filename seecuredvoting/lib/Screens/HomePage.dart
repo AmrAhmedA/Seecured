@@ -312,16 +312,16 @@ class _HomePageState extends State<HomePage> {
             function: voteFunction,
             parameters: [BigInt.from(selectedVoterId)],
             gasPrice:
-                EtherAmount.fromUnitAndValue(EtherUnit.gwei, BigInt.from(6)),
+                EtherAmount.fromUnitAndValue(EtherUnit.gwei, BigInt.from(10)),
 //            nonce: await client.getTransactionCount(address,
 //                atBlock: BlockNum.pending()),
-//            maxGas: 1000000,
-            nonce: 9,
+//            maxGas: 700000,
+//            nonce: 10,
             from: address),
         fetchChainIdFromNetworkId: true,
       );
       print("Test2");
-      print('transaction hash: $txHash');
+      print('Transaction hash: $txHash');
       await Future.delayed(const Duration(seconds: 5));
 //      await Future.delayed(const Duration(seconds: 20));
 //      final votedEvent = client
