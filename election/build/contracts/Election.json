@@ -8405,12 +8405,12 @@
         }
       },
       "links": {},
-      "address": "0x3491c6d40E96Cdc21d7534847eCbB57d4468baaC",
-      "transactionHash": "0x14b61808bef10153d295c5f089a5b3a2ebec9330611cde4cbb1eb8a6bffdd87d"
+      "address": "0x3E7D459EA41D106400F073f985d6CdDeE89D7e78",
+      "transactionHash": "0x70d346a92b26747f65e8a4e5b9878ed1c9151909b12924172ddd2b9e329b53fe"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-08-09T16:15:39.168Z",
+  "updatedAt": "2020-08-11T09:59:01.469Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

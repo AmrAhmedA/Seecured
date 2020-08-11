@@ -146,7 +146,7 @@ contract Election {
     // counting total ballots for each candidate to get the ID of most voted candidate(winner)
     function winnerProposal() public view ownerOnly returns (uint256 _winnerID) {
         uint256 winingVoteCount = 0;
-        for (uint256 i = 0; i < candidatesCount; i++) {
+        for (uint256 i = 1; i < candidatesCount+1; i++) {
             if (candidates[i].voteCount > winingVoteCount) {
                 winingVoteCount = candidates[i].voteCount;
                 _winnerID = i;
