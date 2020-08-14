@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getCandidates();
+//    winnerEvent();
   }
 
   @override
@@ -55,25 +57,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: hp(5, context),
             ),
-            Container(
-              child: haveCandidates == null
-                  ? Center(
-                      child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: hp(8, context)),
-                      child: CircularProgressIndicator(),
-                    ))
-                  : haveCandidates
-                      ? buildBallot()
-                      : Center(
-                          child: Text(
-                            "Failed to load candidates, please try again later",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red),
-                          ),
-                        ),
-            ),
+            initBallot(),
             SizedBox(
               height: hp(5, context),
             ),
@@ -90,6 +74,28 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: MainDrawer(),
+    );
+  }
+
+  Widget initBallot() {
+    return Container(
+      child: haveCandidates == null
+          ? Center(
+              child: Padding(
+              padding: EdgeInsets.symmetric(vertical: hp(8, context)),
+              child: CircularProgressIndicator(),
+            ))
+          : haveCandidates
+              ? buildBallot()
+              : Center(
+                  child: Text(
+                    "Failed to load candidates, please try again later",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ),
     );
   }
 
@@ -146,7 +152,12 @@ class _HomePageState extends State<HomePage> {
                 if (await showVerificationPopup(selectedCandidateName)) {
                   // TODO: send vote transaction
                   print("Voting for $selectedVoterId");
-                  voteTransaction(selectedVoterId);
+                  candidates = [];
+                  haveCandidates = null;
+                  setState(() {
+                  });
+//                  voteTransaction(selectedVoterId);
+                  await getCandidates();
                 } else {
                   // do nothing
                 }
@@ -263,7 +274,7 @@ class _HomePageState extends State<HomePage> {
   void voteTransaction(int selectedVoterId) async {
     /// For extracting public key from private key
     Credentials credentials = EthPrivateKey.fromHex(
-        "61e1adbbb48e344e600ac7ee1b8aa7782d4db6e52a276d16e2a125ca14987a45");
+        "8448d0a584b4d8cc753206ded81c176d05b077e64e326f5cbf3c324bb0cc64e5");
     var address = await credentials.extractAddress();
     print("Account Address: " + address.hex);
 
@@ -276,10 +287,11 @@ class _HomePageState extends State<HomePage> {
     /// For getting the current balance
     EtherAmount balance = await ethClient.getBalance(address);
     var amount = balance.getValueInUnit(EtherUnit.ether);
-    print('Balance before : ${balance.getInWei} wei (${balance.getValueInUnit(EtherUnit.ether)} ether)');
+    print(
+        'Balance before : ${balance.getInWei} wei (${balance.getValueInUnit(EtherUnit.ether)} ether)');
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
+        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
 
     /// Loading ABI
     String data =
@@ -293,7 +305,6 @@ class _HomePageState extends State<HomePage> {
         ContractAbi.fromJson(
             json.encode(jsonResult['abi']), jsonResult['contractName']),
         contractAddr);
-
 
     var networkId = await client.getNetworkId();
     print('networkId: $networkId');
@@ -315,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                 EtherAmount.fromUnitAndValue(EtherUnit.gwei, BigInt.from(10)),
 //            nonce: await client.getTransactionCount(address,
 //                atBlock: BlockNum.pending()),
-//            maxGas: 700000,
+            maxGas: 700000,
 //            nonce: 10,
             from: address),
         fetchChainIdFromNetworkId: true,
@@ -344,10 +355,58 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void getCandidates() async {
+  winnerEvent() async {
     /// For extracting public key from private key
     Credentials credentials = EthPrivateKey.fromHex(
-        "a0af77a6ea033a316c6e883dbcbc87c95f6b3a160017149eaca22c6c49b2f7d9");
+        "8448d0a584b4d8cc753206ded81c176d05b077e64e326f5cbf3c324bb0cc64e5");
+    var address = await credentials.extractAddress();
+
+    /// Initializing web3
+
+    var apiUrl = "https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c";
+
+    var httpClient = new Client();
+    var ethClient = new Web3Client(apiUrl, httpClient);
+
+    /// For getting the current balance
+    EtherAmount balance = await ethClient.getBalance(address);
+
+    /// For getting the network Id
+    int networkId = await ethClient.getNetworkId();
+
+    final EthereumAddress contractAddr =
+        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
+
+    String data =
+        await DefaultAssetBundle.of(context).loadString("Election.json");
+    final jsonResult = json.decode(data);
+//    print(jsonResult);
+
+    final client = Web3Client(apiUrl, Client());
+
+    final contract = DeployedContract(
+        ContractAbi.fromJson(
+            json.encode(jsonResult['abi']), jsonResult['contractName']),
+        contractAddr);
+
+    final winnerEvent = contract.event('votedEvent');
+
+    print("#################################");
+    //listen for the Transfer event when it's emitted by the contract above
+    final winnerTrigger = client
+        .events(FilterOptions.events(contract: contract, event: winnerEvent))
+        .take(1)
+        .listen((event) {
+      final decoded = winnerEvent.decodeResults(event.topics, event.data);
+    });
+    await winnerTrigger.asFuture();
+    await winnerTrigger.cancel();
+  }
+
+  Future<void> getCandidates() async {
+    /// For extracting public key from private key
+    Credentials credentials = EthPrivateKey.fromHex(
+        "8448d0a584b4d8cc753206ded81c176d05b077e64e326f5cbf3c324bb0cc64e5");
     var address = await credentials.extractAddress();
     print('Account public address: ${address.hex}');
 
@@ -367,7 +426,7 @@ class _HomePageState extends State<HomePage> {
     print(networkId);
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x115da7f8c0c8962ae5fd12cc22e807746c8d2a70');
+        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
 
     String data =
         await DefaultAssetBundle.of(context).loadString("Election.json");
@@ -403,6 +462,7 @@ class _HomePageState extends State<HomePage> {
             committee: candidate[3],
             votes: num.parse(candidate[4].toString())));
       }
+      client.dispose();
       setState(() {
         haveCandidates = true;
       });
@@ -457,6 +517,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+//@override
+//void dispose() {
+//  subscription.cancel();
+//  client.dispose();
+//  super.dispose();
+//}
+
 //class _Counter extends State<HomePage> {
 //  int _totalVoteCounter = 0;
 //
