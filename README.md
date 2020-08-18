@@ -72,6 +72,8 @@ The architecture is somewhat similar to the well known old 2 tier "client-server
  
 ## Future work 
 - [ ] Enhancing the application client-side by using SPA framework (React or angular)
+- [ ] Integration with paper-based voting
+- [ ] Enhancing registration phase
 - [ ] Adding Extra functionalities for impaired individuals to participate in the voting process
 
 ## Supervised by 
