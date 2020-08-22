@@ -25,14 +25,14 @@ App = {
             // If a web3 instance is already provided by Meta Mask (A node has the ability to view and interact with Ethereum)
             App.web3Provider = web3.currentProvider;
             // App.web3Provider = new Web3.providers.HttpProvider("https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c");
-            ethereum.enable();
+            ethereum.eth_requestAccounts;
             web3 = new Web3(web3.currentProvider);
             // web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c"));
         } else {
             alert("Please Install MetaMask");
             // Specify default instance if no web3 instance provided - Ganache as default provider
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
-            ethereum.enable();
+            ethereum.eth_requestAccounts;
             web3 = new Web3(App.web3Provider);
         }
         return App.initContract();
@@ -44,6 +44,7 @@ App = {
             // Connect provider to interact with contract
             App.contracts.Election.setProvider(App.web3Provider);
             App.winnerEventListener();
+            App.endElectionListener();
             console.log("Testing");
             return App.render();
         });
@@ -76,12 +77,31 @@ App = {
                     console.log("Winner has been announced");
                     console.log("event triggered", event);
                     instance.electionWinner.call().then(function(winnerBUE) {
-                        var loader = $("#loader");
-                        loader.empty();
+                        var content = $("#content");
+                        content.empty();
                         var result = `<h2 class='text-center'> The Winner is: ` + winnerBUE + `</h2>`
-                        loader.append(result);
-                        console.log("Amora");
+                        content.append(result);
+                        console.log("Winner is: " + winnerBUE);
                     });
+                } else {
+                    console.log("Error", error);
+                }
+            });
+        });
+    },
+    endElectionListener: async function() {
+        App.contracts.Election.deployed().then(function(instance) {
+            instance.endElection({}, {
+                fromBlock: 0,
+                toBlock: 'latest'
+            }).watch(function(error, event) {
+                if (!error) {
+                    console.log("Election Finished");
+                    console.log("event triggered", event);
+                    var content = $("#content");
+                    content.empty();
+                    var result = `<h1 class='text-center'> Election Finished </h1>`
+                    content.append(result);
                 } else {
                     console.log("Error", error);
                 }
@@ -154,6 +174,7 @@ App = {
             console.warn(error);
             alert("Sorry Amr, You Need to Focus More");
         });
+
     },
     electionTimer: function() {
         App.contracts.Election.deployed().then(function(instance) {
