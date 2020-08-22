@@ -25,6 +25,7 @@ App = {
             // If a web3 instance is already provided by Meta Mask (A node has the ability to view and interact with Ethereum)
             App.web3Provider = web3.currentProvider;
             // App.web3Provider = new Web3.providers.HttpProvider("https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c");
+            ethereum.enable();
             ethereum.eth_requestAccounts;
             web3 = new Web3(web3.currentProvider);
             // web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/v3/cbc6700679974ee0bb0c6c62a480438c"));
@@ -32,6 +33,7 @@ App = {
             alert("Please Install MetaMask");
             // Specify default instance if no web3 instance provided - Ganache as default provider
             App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+            ethereum.enable();
             ethereum.eth_requestAccounts;
             web3 = new Web3(App.web3Provider);
         }
