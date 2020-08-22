@@ -291,7 +291,7 @@ class _HomePageState extends State<HomePage> {
         'Balance before : ${balance.getInWei} wei (${balance.getValueInUnit(EtherUnit.ether)} ether)');
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
+        EthereumAddress.fromHex('0x774860665440f23b77f5c9e7d801b4810e5a5341');
 
     /// Loading ABI
     String data =
@@ -375,7 +375,7 @@ class _HomePageState extends State<HomePage> {
     int networkId = await ethClient.getNetworkId();
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
+        EthereumAddress.fromHex('0x774860665440f23b77f5c9e7d801b4810e5a5341');
 
     String data =
         await DefaultAssetBundle.of(context).loadString("Election.json");
@@ -426,7 +426,7 @@ class _HomePageState extends State<HomePage> {
     print(networkId);
 
     final EthereumAddress contractAddr =
-        EthereumAddress.fromHex('0x6d88896a12cf7f6e557734ef9c5fac9ff5dbda8d');
+        EthereumAddress.fromHex('0x774860665440f23b77f5c9e7d801b4810e5a5341');
 
     String data =
         await DefaultAssetBundle.of(context).loadString("Election.json");

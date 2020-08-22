@@ -49,7 +49,7 @@ contract Election {
         addCandidate("Amr Ahmed Abd El Rahman", 162697, "Scientific");
         addCandidate("Moataz Ahmed Abd El Rahman", 182839, "Clubs");
         setElectionName("BUE Student Union Election");
-        setElectionEndDate("08/25/2020");
+        setElectionEndDate("08/26/2020");
     }
 
     // Person who is calling this function will be only the Owner of the contract
