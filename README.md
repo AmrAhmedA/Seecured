@@ -42,7 +42,7 @@ The architecture is somewhat similar to the well known old 2 tier "client-server
 * [Vscode](https://code.visualstudio.com/)
 * [Sublime](https://www.sublimetext.com/)
 
-## Dev Dependencies used 
+## NPM dependencies used 
 * [liteserver](https://www.npmjs.com/package/lite-server) - Lightweight development for web sync
 * [gh-pages](https://www.npmjs.com/package/gh-pages) - Github hosting service
 
@@ -69,11 +69,33 @@ The architecture is somewhat similar to the well known old 2 tier "client-server
 ## Web application 
 * [Seecured](https://AmrAhmedA.github.io/Seecured/) 
  
+## Installation Guidelines
+To begin working on the project for development purposes, open your command (Windows) or terminal (Linux) and clone the project through the following command 
+```
+git clone https://github.com/AmrAhmedA/Seecured
+```
+### Install Dependencies
+| Dependencies | Site |
+| ------ | ------ |
+| Node Package Manager (NPM) | https://nodejs.org/en/download/ |
+| Ganache | https://www.trufflesuite.com/ganache |
+| MetaMask | https://metamask.io/download.html |
+| Flutter SDK | https://flutter.dev/docs/get-started/install/windows |
+| Vscode (Code Editor) | https://code.visualstudio.com/ | 
+
+
+1. After installing the node package manager, make sure you have added it to the environment variables if you are using windows OS
+2. Make sure to check your node package manager version by typing the following command ```npm -v ```
+3. Refer to the cloned project folder using your terminal and run ``` npm install ```
+4. Run ```npm run dev``` to run the web app on lite server
+
+
 ## Future work 
 - [ ] Enhancing the application client-side by using SPA framework (React or angular)
 - [ ] Integration with paper-based voting
 - [ ] Enhancing registration phase
 - [ ] Adding Extra functionalities for impaired individuals to participate in the voting process
+
 
 ## Supervised by 
 * Associate Professor Abeer Hamdy
